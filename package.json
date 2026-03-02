@@ -1,0 +1,12 @@
+{
+  "name": "unity-care-hospital",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Unity Care Hospital (UCH) — Institutional Digital Health Infrastructure",
+  "scripts": {
+    "api:install": "npm --prefix backend install",
+    "api:dev":     "npm --prefix backend run dev",
+    "api:start":   "npm --prefix backend run start",
+    "api:test":    "npm --prefix backend run test"
+  }
+}
