@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   api:
     build:
@@ -29,7 +27,8 @@ services:
     networks:
       - uch-network
     healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      # Added --quiet to prevent log noise and ensure clean exit codes
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
       interval: 10s
       timeout: 5s
       retries: 5
