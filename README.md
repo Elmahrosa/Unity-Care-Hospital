@@ -15,6 +15,7 @@
 **Live Platform:** https://uch.teosegypt.com · **Demo Environment:** https://teos-uch.space.z.ai  
 **Contact:** info@uch.teosegypt.com · +20 100 616 7293  
 **Response Target:** 48 Hours
+# Institutional buyers can request the full technical diligence package under NDA.
 
 </div>
 
