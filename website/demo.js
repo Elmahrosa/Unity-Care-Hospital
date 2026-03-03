@@ -1,193 +1,341 @@
-const $ = s => document.querySelector(s);
-const KEY = "uch_demo_state_v1";
+const $ = sel => document.querySelector(sel);
 
-let state = load();
+function ts() { return new Date().toISOString().replace('T',' ').slice(0,19); }
 
-function load() {
-  const raw = localStorage.getItem(KEY);
-  if (raw) return JSON.parse(raw);
+function loadState() {
+  try {
+    const raw = localStorage.getItem('uch_demo_v2');
+    if (raw) return JSON.parse(raw);
+  } catch(e){}
   return {
-    authed: false,
-    user: null,
-    view: "login",
-    audit: [],
-    data: structuredClone(window.UCH_DEMO_DATA)
+    authed: false, user: null, view: 'login',
+    audit: [{ t: ts(), actor: 'system', action: 'Demo initialized', sev: 'info' }],
+    data: JSON.parse(JSON.stringify(window.UCH_DEMO_DATA))
   };
 }
 
-function save() {
-  localStorage.setItem(KEY, JSON.stringify(state));
-}
+function save() { try { localStorage.setItem('uch_demo_v2', JSON.stringify(state)); } catch(e){} }
 
-function ts() {
-  return new Date().toISOString().slice(0,19).replace("T"," ");
-}
-
-function log(action) {
-  state.audit.unshift({ time: ts(), actor: state.user?.email || "guest", action });
+function log(action, sev='info') {
+  state.audit.unshift({ t: ts(), actor: state.user?.email || 'guest', action, sev });
   save();
 }
 
-function render() {
-  if (!state.authed) return renderLogin();
+function pct(x) { return Math.round(x * 100) + '%'; }
 
-  const views = {
-    dashboard: renderDashboard,
-    patients: renderPatients,
-    beds: renderBeds,
-    appointments: renderAppointments,
-    audit: renderAudit
-  };
-
-  views[state.view]();
-}
-
-function renderLogin() {
-  $("#app").innerHTML = `
-  <div class="flex items-center justify-center h-screen">
-    <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 w-96">
-      <div class="text-lg font-semibold mb-4">UCH Demo Login</div>
-      <input id="email" placeholder="buyer@demo.com"
-        class="w-full mb-3 px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg"/>
-      <input id="pass" type="password" placeholder="demo123"
-        class="w-full mb-4 px-3 py-2 bg-slate-950 border border-slate-800 rounded-lg"/>
-      <button onclick="login()"
-        class="w-full py-2 bg-indigo-600/20 border border-indigo-500/40 rounded-lg">
-        Enter Demo
-      </button>
-    </div>
-  </div>`;
-}
-
-function login() {
-  const email = $("#email").value;
-  const pass = $("#pass").value;
-
-  const user = state.data.users.find(u => u.email === email && u.password === pass);
-  if (!user) return alert("Use buyer@demo.com / demo123");
-
-  state.authed = true;
-  state.user = user;
-  state.view = "dashboard";
-  log("Logged in");
-  save();
+function seedReset() {
+  localStorage.removeItem('uch_demo_v2');
+  state = loadState();
   render();
 }
 
-function nav() {
+let state = loadState();
+
+/* ── Layout ── */
+function layout(title, body) {
   return `
-  <div class="flex gap-2 mb-4">
-    ${["dashboard","patients","beds","appointments","audit"]
-      .map(v => `<button onclick="go('${v}')"
-        class="px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 hover:bg-slate-800">
-        ${v}
-      </button>`).join("")}
-    <button onclick="logout()" class="ml-auto text-xs text-rose-400">Logout</button>
-  </div>`;
-}
-
-function go(v) { state.view = v; log("View " + v); render(); }
-function logout() { state.authed = false; state.user = null; save(); render(); }
-
-function renderDashboard() {
-  const k = state.data.kpis;
-
-  $("#app").innerHTML = `
-  <div class="p-6 max-w-5xl mx-auto">
-    ${nav()}
-    <div class="grid md:grid-cols-4 gap-3">
-      ${card("Occupancy", Math.round(k.occupancy*100)+"%")}
-      ${card("Avg Wait", k.avgWaitMins+" mins")}
-      ${card("Claims", k.claimsInReview)}
-      ${card("Incidents", k.incidentsOpen)}
+  <div class="hdr">
+    <div class="hdr-logo">
+      <div class="logo-icon">🏥</div>
+      <div>
+        <div class="hdr-title">${title}</div>
+        <div class="hdr-sub">Interactive demo · mock data · real UI flows</div>
+      </div>
     </div>
-  </div>`;
+    <div class="hdr-actions">
+      <button class="btn btn-ghost" onclick="seedReset()">Reset demo</button>
+      ${state.authed ? `<span class="user-label">${state.user.name} · ${state.user.role}</span>
+        <button class="btn btn-red" onclick="logout()">Logout</button>` : ''}
+    </div>
+  </div>
+  ${state.authed ? navBar() : ''}
+  <div>${body}</div>`;
 }
 
-function card(label,val){
-  return `<div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-    <div class="text-xs text-slate-400">${label}</div>
-    <div class="text-xl font-semibold mt-1">${val}</div>
-  </div>`;
+function navBar() {
+  const items = [['dashboard','Dashboard'],['patients','Patients'],['beds','Bed Mgmt'],
+                 ['appointments','Appointments'],['telemed','Telemedicine'],['audit','Audit Log']];
+  return `<nav>${items.map(([k,l])=>`
+    <button class="${state.view===k?'active':''}" onclick="go('${k}')">${l}</button>`).join('')}
+  </nav>`;
 }
 
-function renderPatients(){
-  $("#app").innerHTML = `
-  <div class="p-6 max-w-5xl mx-auto">
-    ${nav()}
-    <button onclick="addPatient()"
-      class="mb-3 px-3 py-2 bg-emerald-600/20 border border-emerald-500/40 rounded-lg">
-      + Admit Patient
-    </button>
-    ${state.data.patients.map(p => `
-      <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 mb-2 flex justify-between">
-        <div>${p.name} (${p.id})</div>
-        <button onclick="discharge('${p.id}')"
-          class="text-xs text-rose-400">Discharge</button>
+function go(v) { state.view = v; log(`Navigated to ${v}`); render(); }
+
+/* ── Auth ── */
+function login() {
+  const email = $('#email').value.trim();
+  const pass  = $('#pass').value.trim();
+  const user  = state.data.users.find(u => u.email===email && u.password===pass);
+  if (!user) { alert('Use buyer@demo.com / demo123'); return; }
+  state.authed = true;
+  state.user   = { email: user.email, role: user.role, name: user.name };
+  state.view   = 'dashboard';
+  log('Logged in');
+  save(); render();
+}
+
+function logout() { log('Logged out'); state.authed=false; state.user=null; state.view='login'; save(); render(); }
+
+/* ── Badge ── */
+function badge(t) {
+  const m = {
+    Red:'b-red', Yellow:'b-amber', Green:'b-green',
+    Admitted:'b-indigo', ER:'b-amber', ICU:'b-red',
+    Available:'b-green', Occupied:'b-slate',
+    Scheduled:'b-indigo', 'In Progress':'b-amber', Completed:'b-green',
+    info:'b-slate', warn:'b-amber', critical:'b-red'
+  };
+  return `<span class="badge ${m[t]||'b-slate'}">${t}</span>`;
+}
+
+/* ── Views ── */
+function viewLogin() {
+  return layout('UCH — Demo Login', `
+  <div class="login-wrap">
+    <div class="card">
+      <div class="section-title">Enter interactive demo</div>
+      <div class="cred-box">
+        buyer@demo.com · demo123 &nbsp;|&nbsp; ops@demo.com · demo123
       </div>
-    `).join("")}
-  </div>`;
-}
-
-function addPatient(){
-  const id = "P-" + Math.floor(Math.random()*9999);
-  state.data.patients.unshift({ id, name: "Mock "+id });
-  log("Admitted "+id);
-  save();
-  render();
-}
-
-function discharge(id){
-  state.data.patients = state.data.patients.filter(p => p.id !== id);
-  log("Discharged "+id);
-  save();
-  render();
-}
-
-function renderBeds(){
-  $("#app").innerHTML = `
-  <div class="p-6 max-w-5xl mx-auto">
-    ${nav()}
-    ${state.data.beds.map(b => `
-      <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 mb-2">
-        ${b.id} — ${b.status}
-        <button onclick="toggleBed('${b.id}')"
-          class="ml-4 text-xs text-indigo-400">Toggle</button>
+      <label>Email</label>
+      <input id="email" type="text" placeholder="buyer@demo.com" value="buyer@demo.com"/>
+      <label>Password</label>
+      <input id="pass" type="password" placeholder="demo123" value="demo123"/>
+      <div style="margin-top:16px">
+        <button class="btn btn-indigo" style="width:100%;padding:12px" onclick="login()">Enter Demo →</button>
       </div>
-    `).join("")}
-  </div>`;
+    </div>
+  </div>`);
 }
 
-function toggleBed(id){
-  const b = state.data.beds.find(x => x.id === id);
-  b.status = b.status === "Available" ? "Occupied" : "Available";
-  log("Bed "+id+" → "+b.status);
-  save();
-  render();
-}
-
-function renderAppointments(){
-  $("#app").innerHTML = `
-  <div class="p-6 max-w-5xl mx-auto">
-    ${nav()}
-    ${state.data.appointments.map(a => `
-      <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 mb-2">
-        ${a.patient} — ${a.status}
+function viewDashboard() {
+  const k = state.data.kpis;
+  return layout('Dashboard', `
+  <div class="grid4">
+    <div class="card"><div class="kpi-label">Bed Occupancy</div><div class="kpi-val">${pct(k.occupancy)}</div><div class="kpi-hint">Updates with bed actions</div></div>
+    <div class="card"><div class="kpi-label">Avg Wait Time</div><div class="kpi-val">${k.avgWaitMins}m</div><div class="kpi-hint">ER throughput</div></div>
+    <div class="card"><div class="kpi-label">Claims In Review</div><div class="kpi-val">${k.claimsInReview}</div><div class="kpi-hint">Revenue cycle</div></div>
+    <div class="card"><div class="kpi-label">Open Incidents</div><div class="kpi-val">${k.incidentsOpen}</div><div class="kpi-hint">Governance</div></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="section-title">Quick Actions</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <button class="btn btn-ghost" onclick="go('patients')">Open Patients</button>
+        <button class="btn btn-ghost" onclick="go('beds')">Manage Beds</button>
+        <button class="btn btn-green" onclick="simulateClaim()">Simulate Claim</button>
+        <button class="btn btn-indigo" onclick="exportAudit()">Export Audit JSON</button>
       </div>
-    `).join("")}
-  </div>`;
+    </div>
+    <div class="card">
+      <div class="section-title">What this demo proves</div>
+      <ul class="feat-list">
+        <li>Real UI flows — not screenshots</li>
+        <li>Role-based feel (Buyer vs Ops)</li>
+        <li>All actions write to audit log</li>
+        <li>Exportable audit JSON for compliance buyers</li>
+      </ul>
+    </div>
+  </div>`);
 }
 
-function renderAudit(){
-  $("#app").innerHTML = `
-  <div class="p-6 max-w-5xl mx-auto">
-    ${nav()}
-    ${state.audit.map(a => `
-      <div class="text-xs text-slate-400 mb-1">
-        ${a.time} — ${a.actor} — ${a.action}
+function viewPatients() {
+  const rows = state.data.patients.map(p=>`
+  <tr>
+    <td style="color:#64748b;font-size:11px">${p.id}</td>
+    <td>${p.name}</td><td>${p.age}</td>
+    <td>${badge(p.triage)}</td><td>${badge(p.status)}</td>
+    <td>${p.ward}</td><td>${p.bed}</td>
+    <td style="text-align:right">
+      <button class="btn btn-red" onclick="discharge('${p.id}')">Discharge</button>
+    </td>
+  </tr>`).join('');
+
+  return layout('Patients', `
+  <div class="card">
+    <div class="tbl-head">
+      <span class="section-title" style="margin:0">Patient Registry</span>
+      <button class="btn btn-green" onclick="admitMock()">+ Admit mock patient</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Triage</th><th>Status</th><th>Ward</th><th>Bed</th><th style="text-align:right">Action</th></tr></thead>
+        <tbody>${rows||'<tr><td colspan="8" style="color:#475569;text-align:center;padding:20px">No patients</td></tr>'}</tbody>
+      </table>
+    </div>
+  </div>`);
+}
+
+function viewBeds() {
+  const cards = state.data.beds.map(b=>`
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <span style="font-weight:600">${b.id}</span>
+      <span style="font-size:11px;color:#64748b">${b.ward} · ${b.type}</span>
+    </div>
+    <div style="margin:10px 0">${badge(b.status)}</div>
+    <div class="row-actions">
+      <button class="btn btn-green" onclick="setBed('${b.id}','Available')">Set Available</button>
+      <button class="btn btn-amber" onclick="setBed('${b.id}','Occupied')">Set Occupied</button>
+    </div>
+  </div>`).join('');
+
+  return layout('Bed Management', `<div class="grid3">${cards}</div>`);
+}
+
+function viewAppointments() {
+  const rows = state.data.appointments.map(a=>`
+  <tr>
+    <td style="color:#64748b;font-size:11px">${a.id}</td>
+    <td>${a.patient}</td><td>${a.dept}</td><td>${a.time}</td>
+    <td>${badge(a.status)}</td>
+    <td style="text-align:right">
+      <button class="btn btn-indigo" onclick="advanceAppt('${a.id}')">Next status</button>
+    </td>
+  </tr>`).join('');
+
+  return layout('Appointments', `
+  <div class="card">
+    <div class="tbl-head">
+      <span class="section-title" style="margin:0">Scheduling Board</span>
+      <button class="btn btn-green" onclick="newAppt()">+ Create appointment</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>ID</th><th>Patient</th><th>Dept</th><th>Time</th><th>Status</th><th style="text-align:right">Action</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`);
+}
+
+function viewTelemed() {
+  return layout('Telemedicine', `
+  <div class="grid2">
+    <div class="card">
+      <div class="section-title">Video Session (Mock WebRTC)</div>
+      <p style="font-size:13px;color:#94a3b8;margin-bottom:12px">Simulates session start, event logging, and clinician notes workflow.</p>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-green" onclick="teleStart()">▶ Start session</button>
+        <button class="btn btn-red" onclick="teleEnd()">■ End session</button>
       </div>
-    `).join("")}
-  </div>`;
+      <div class="tele-box" id="telebox">No active session.</div>
+    </div>
+    <div class="card">
+      <div class="section-title">Clinical Notes</div>
+      <textarea id="notes" placeholder="Type a clinical note, then save…"></textarea>
+      <div style="margin-top:10px">
+        <button class="btn btn-indigo" onclick="saveNotes()">Save note</button>
+      </div>
+    </div>
+  </div>`);
+}
+
+function viewAudit() {
+  const rows = state.audit.map(a=>`
+  <tr>
+    <td style="font-size:11px;color:#475569;white-space:nowrap">${a.t}</td>
+    <td style="font-size:11px;color:#94a3b8">${a.actor}</td>
+    <td>${a.action}</td>
+    <td>${badge(a.sev)}</td>
+  </tr>`).join('');
+
+  return layout('Audit Log', `
+  <div class="card">
+    <div class="tbl-head">
+      <span class="section-title" style="margin:0">Immutable-style event log</span>
+      <button class="btn btn-indigo" onclick="exportAudit()">Export JSON</button>
+    </div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>Time</th><th>Actor</th><th>Action</th><th>Severity</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+  </div>`);
+}
+
+/* ── Actions ── */
+function discharge(pid) {
+  const p = state.data.patients.find(x=>x.id===pid); if(!p) return;
+  log(`Discharged ${pid} (${p.name})`, 'warn');
+  const bed = state.data.beds.find(b=>b.id===p.bed); if(bed) bed.status='Available';
+  state.data.patients = state.data.patients.filter(x=>x.id!==pid);
+  reKpi(); save(); render();
+}
+
+function admitMock() {
+  const id = 'P-'+Math.floor(1000+Math.random()*8999);
+  state.data.patients.unshift({ id, name:'Mock Patient '+id, age:20+Math.floor(Math.random()*55), triage:'Green', status:'Admitted', ward:'A', bed:'A-10' });
+  const bed = state.data.beds.find(b=>b.id==='A-10'); if(bed) bed.status='Occupied';
+  log(`Admitted ${id}`, 'info'); reKpi(); save(); render();
+}
+
+function setBed(id, status) {
+  const bed = state.data.beds.find(b=>b.id===id); if(!bed) return;
+  bed.status = status;
+  log(`Bed ${id} → ${status}`, status==='Occupied'?'warn':'info');
+  reKpi(); save(); render();
+}
+
+function reKpi() {
+  const beds = state.data.beds;
+  state.data.kpis.occupancy = beds.filter(b=>b.status==='Occupied').length / beds.length;
+}
+
+function advanceAppt(id) {
+  const a = state.data.appointments.find(x=>x.id===id); if(!a) return;
+  const seq = ['Scheduled','In Progress','Completed'];
+  a.status = seq[(seq.indexOf(a.status)+1)%seq.length];
+  log(`Appointment ${id} → ${a.status}`); save(); render();
+}
+
+function newAppt() {
+  const id = 'A-'+Math.floor(100+Math.random()*900);
+  state.data.appointments.unshift({ id, patient:'Mock Patient', dept:'General', time:'14:00', status:'Scheduled' });
+  log(`Created appointment ${id}`); save(); render();
+}
+
+function teleStart() {
+  log('Telemedicine session started');
+  const b = $('#telebox'); if(!b) return;
+  b.innerHTML = '<span class="tele-live">● LIVE</span> — Mock WebRTC: connected, media OK, session ID: ' + Math.random().toString(36).slice(2,10).toUpperCase();
+}
+
+function teleEnd() {
+  log('Telemedicine session ended', 'warn');
+  const b = $('#telebox'); if(!b) return;
+  b.innerHTML = 'Session ended.';
+}
+
+function saveNotes() {
+  const v = $('#notes')?.value.trim();
+  log(v ? 'Saved clinical note' : 'Empty note attempt', v?'info':'warn');
+  if(v) alert('Note saved (mock).');
+}
+
+function simulateClaim() {
+  state.data.kpis.claimsInReview++;
+  log('Simulated insurance claim intake'); save(); render();
+}
+
+function exportAudit() {
+  const blob = new Blob([JSON.stringify({exported: ts(), audit: state.audit}, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'uch-demo-audit.json';
+  a.click();
+  log('Exported audit log JSON');
+}
+
+/* ── Router ── */
+function render() {
+  const app = $('#app'); if(!app) return;
+  if (!state.authed) { app.innerHTML = viewLogin(); return; }
+  const views = { dashboard:viewDashboard, patients:viewPatients, beds:viewBeds,
+                  appointments:viewAppointments, telemed:viewTelemed, audit:viewAudit };
+  app.innerHTML = (views[state.view] || viewDashboard)();
 }
 
 render();
