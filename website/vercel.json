@@ -6,23 +6,3 @@
   ]
 }
 ```
-
-Commit it. Vercel will redeploy automatically.
-
----
-
-## Current State Summary
-
-| URL | Status | Purpose |
-|-----|--------|---------|
-| `uch.teosegypt.com` | ✅ Live | Main landing page for buyers |
-| `unity-care-hospital.vercel.app/demo.html` | ✅ Live | Interactive demo |
-| `unity-care-hospital.vercel.app/` | ⚠️ Shows demo | Should show landing page |
-
----
-
-## What to share with buyers right now
-```
-Landing:  https://uch.teosegypt.com
-Demo:     https://unity-care-hospital.vercel.app/demo.html
-Login:    buyer@demo.com / demo123
