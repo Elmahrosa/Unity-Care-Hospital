@@ -91,22 +91,81 @@ function badge(t) {
 
 /* ── Views ── */
 function viewLogin() {
-  return layout('UCH — Demo Login', `
-  <div class="login-wrap">
-    <div class="card">
-      <div class="section-title">Enter interactive demo</div>
-      <div class="cred-box">
-        buyer@demo.com · demo123 &nbsp;|&nbsp; ops@demo.com · demo123
+  return `
+  <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px">
+    <div style="max-width:960px;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center">
+
+      <!-- LEFT: Positioning -->
+      <div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:.15em;color:#a5b4fc;margin-bottom:12px">
+          Unity Care Hospital
+        </div>
+        <div style="font-size:32px;font-weight:700;line-height:1.2;margin-bottom:16px">
+          Institutional Demo<br>Environment
+        </div>
+        <p style="font-size:14px;color:#94a3b8;line-height:1.7;margin-bottom:24px">
+          This interactive environment demonstrates real operational flows —
+          patient management, bed allocation, scheduling,
+          telemedicine simulation, and immutable audit logging.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;color:#64748b">
+          <div>✦ Real UI flows — not screenshots</div>
+          <div>✦ Role-based experience (Executive vs Ops)</div>
+          <div>✦ Governance + audit visibility</div>
+          <div>✦ Synthetic data — no real PHI</div>
+        </div>
+        <div style="margin-top:24px;font-size:11px;color:#475569;line-height:1.8">
+          Environment: Demo / Non-Production<br>
+          Compliance Simulation: HIPAA · GDPR · SOC 2 (UI level)
+        </div>
+        <div style="margin-top:20px">
+          <a href="mailto:info@uch.teosegypt.com"
+             style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;
+                    border:1px solid rgba(0,211,167,.3);background:rgba(0,211,167,.07);
+                    color:#00d3a7;font-size:12px;text-decoration:none">
+            📋 Request Full Institutional Briefing →
+          </a>
+        </div>
       </div>
-      <label>Email</label>
-      <input id="email" type="text" placeholder="buyer@demo.com" value="buyer@demo.com"/>
-      <label>Password</label>
-      <input id="pass" type="password" placeholder="demo123" value="demo123"/>
-      <div style="margin-top:16px">
-        <button class="btn btn-indigo" style="width:100%;padding:12px" onclick="login()">Enter Demo →</button>
+
+      <!-- RIGHT: Login Box -->
+      <div class="card" style="padding:32px;border-color:rgba(99,102,241,.2)">
+        <div style="font-size:16px;font-weight:700;margin-bottom:4px">Secure Demo Access</div>
+        <div style="font-size:12px;color:#64748b;margin-bottom:24px">Authorized institutional reviewers only.</div>
+
+        <div class="cred-box" style="margin-bottom:24px">
+          <div style="font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:8px">Demo Credentials</div>
+          <div>Executive View → <span style="color:#a5b4fc">buyer@demo.com</span></div>
+          <div style="margin-top:4px">Ops Admin → <span style="color:#a5b4fc">ops@demo.com</span></div>
+          <div style="margin-top:4px">Password → <span style="color:#a5b4fc">demo123</span></div>
+        </div>
+
+        <label>Email</label>
+        <input id="email" type="text" placeholder="buyer@demo.com" value="buyer@demo.com"
+               style="margin-bottom:16px"/>
+        <label>Password</label>
+        <input id="pass" type="password" placeholder="demo123" value="demo123"
+               style="margin-bottom:24px"/>
+
+        <button class="btn btn-indigo" style="width:100%;padding:14px;font-size:14px;font-weight:600"
+                onclick="login()">
+          Enter Interactive Demo →
+        </button>
+
+        <div style="margin-top:20px;font-size:11px;color:#475569;line-height:1.6;border-top:1px solid #1e293b;padding-top:16px">
+          This environment contains synthetic data for demonstration purposes only.
+          All actions are logged in the audit trail visible inside the platform.
+        </div>
       </div>
+
     </div>
-  </div>`);
+  </div>
+
+  <style>
+    @media(max-width:700px){
+      div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+    }
+  </style>`;
 }
 
 function viewDashboard() {
