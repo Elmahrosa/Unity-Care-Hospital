@@ -1,546 +1,85 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unity Care Hospital (UCH) — Sovereign Telehealth Infrastructure</title>
-  <meta name="description" content="Unity Care Hospital (UCH) is a modular, sovereign-ready telehealth infrastructure platform for hospital groups, healthcare operators, and national health systems. Deploy with full control, compliance-aligned architecture, and long-term autonomy." />
-  <meta name="keywords" content="telehealth, healthcare infrastructure, sovereign deployment, HIPAA, GDPR, institutional healthcare" />
-  <meta property="og:title" content="Unity Care Hospital (UCH) — Sovereign Telehealth Infrastructure" />
-  <meta property="og:description" content="Modular telehealth infrastructure for institutional deployment. Full deployment control, compliance architecture, and operational autonomy." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://uch.teosegypt.com" />
-  
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>UCH Demo — Interactive Environment</title>
   <style>
-    :root{
-      --bg:#0b1020; --card:#111a33; --muted:#b7c3ff; --text:#eef2ff;
-      --accent:#7c5cff; --accent2:#00d3a7; --border:rgba(255,255,255,.10);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      background:radial-gradient(1200px 800px at 10% 10%, rgba(124,92,255,.25), transparent 60%),
-                  radial-gradient(900px 600px at 90% 20%, rgba(0,211,167,.18), transparent 55%), 
-                  var(--bg);
-      color:var(--text)
-    }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1200px;margin:0 auto;padding:28px 18px 80px}
-    
-    /* Navigation */
-    .nav{
-      display:flex;align-items:center;justify-content:space-between;gap:12px;
-      padding:8px 0 22px;border-bottom:1px solid var(--border);margin-bottom:40px;
-      flex-wrap:wrap;
-    }
-    .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px}
-    .badge{font-size:12px;padding:6px 10px;border:1px solid var(--border);border-radius:999px;color:var(--muted)}
-    .nav-links{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
-    .nav-links a{font-size:12px;color:var(--muted);transition:color .2s;text-transform:uppercase;letter-spacing:.1px}
-    .nav-links a:hover{color:var(--accent2)}
-    .links{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.03);transition:all .2s;cursor:pointer}
-    .btn:hover{border-color:var(--accent2);background:rgba(0,211,167,.1)}
-    .btn.primary{background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,211,167,.80));border:0;color:#061018;font-weight:800}
-    .btn.primary:hover{opacity:.9}
-    .btn.demo{
-      background:linear-gradient(135deg,rgba(0,211,167,.2),rgba(0,211,167,.08));
-      border:1px solid rgba(0,211,167,.45);color:#00d3a7;font-weight:700;
-      animation:pulse-border 2.5s ease-in-out infinite;
-    }
-    .btn.demo:hover{background:rgba(0,211,167,.25)}
-    @keyframes pulse-border{
-      0%,100%{box-shadow:0 0 0 0 rgba(0,211,167,.25)}
-      50%{box-shadow:0 0 0 6px rgba(0,211,167,0)}
-    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#0a0f1e;color:#e2e8f0;font-family:'Segoe UI',system-ui,sans-serif;min-height:100vh}
+    #app{max-width:1100px;margin:0 auto;padding:24px}
 
-    /* Hero Section */
-    .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}
-    @media (max-width: 900px){.hero{grid-template-columns:1fr}}
-    h1{font-size:48px;line-height:1.05;margin:10px 0 10px;font-weight:800}
-    h2{font-size:32px;line-height:1.2;margin:20px 0 15px;font-weight:800}
-    h3{font-size:18px;font-weight:700;margin:0 0 8px}
-    p{color:var(--muted);line-height:1.6;margin:0 0 14px}
-    .card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:18px;padding:18px}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-    @media (max-width: 900px){.grid{grid-template-columns:1fr}}
-    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    @media (max-width: 900px){.grid-2{grid-template-columns:1fr}}
-    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    @media (max-width: 1000px){.grid-4{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width: 600px){.grid-4{grid-template-columns:1fr}}
-    .kpi{display:flex;gap:12px}
-    .kpi strong{font-size:18px}
-    .muted{color:var(--muted)}
-    .section{margin-top:18px}
-    .section h2{font-size:18px;margin:0 0 12px}
-    ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.6}
-    .pricing{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-    @media (max-width: 1200px){.pricing{grid-template-columns:repeat(2,1fr)}}
-    @media (max-width: 600px){.pricing{grid-template-columns:1fr}}
-    .price{font-size:28px;font-weight:900;color:var(--accent2)}
-    .small{font-size:12px;color:rgba(238,242,255,.75)}
-    .footer{margin-top:26px;display:grid;grid-template-columns:1.3fr .7fr;gap:12px}
-    @media (max-width: 900px){.footer{grid-template-columns:1fr}}
-    .icon{width:18px;height:18px;display:inline-block}
-    .pill{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.03);color:var(--muted);font-size:12px}
-    .hr{height:1px;background:var(--border);margin:16px 0}
+    /* Header */
+    .hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+    .hdr-logo{display:flex;align-items:center;gap:12px}
+    .logo-icon{width:40px;height:40px;border-radius:12px;background:rgba(99,102,241,.15);border:1px solid rgba(99,102,241,.3);display:flex;align-items:center;justify-content:center;font-size:20px}
+    .hdr-title{font-size:17px;font-weight:600}
+    .hdr-sub{font-size:11px;color:#64748b;margin-top:2px}
+    .hdr-actions{display:flex;align-items:center;gap:8px}
+    .user-label{font-size:11px;color:#64748b}
 
-    /* Demo banner */
-    .demo-banner{
-      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
-      background:linear-gradient(135deg,rgba(0,211,167,.07),rgba(124,92,255,.07));
-      border:1px solid rgba(0,211,167,.25);border-radius:16px;padding:16px 20px;
-      margin-bottom:24px;
-    }
-    .demo-banner-text{font-size:14px;color:var(--muted)}
-    .demo-banner-text strong{color:#00d3a7}
-    .demo-live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#00d3a7;margin-right:6px;animation:blink 1.4s ease-in-out infinite}
-    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+    /* Buttons */
+    .btn{padding:8px 14px;border-radius:10px;border:1px solid;cursor:pointer;font-size:13px;background:transparent;color:#e2e8f0}
+    .btn-ghost{border-color:#334155;background:#0f172a}
+    .btn-ghost:hover{background:#1e293b}
+    .btn-red{border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.08);color:#fca5a5}
+    .btn-red:hover{background:rgba(239,68,68,.15)}
+    .btn-green{border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.08);color:#6ee7b7}
+    .btn-green:hover{background:rgba(16,185,129,.15)}
+    .btn-indigo{border-color:rgba(99,102,241,.35);background:rgba(99,102,241,.1);color:#a5b4fc}
+    .btn-indigo:hover{background:rgba(99,102,241,.2)}
+    .btn-amber{border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.08);color:#fcd34d}
+    .btn-amber:hover{background:rgba(245,158,11,.15)}
 
-    /* Sections */
-    .section-wrapper{margin-top:60px;padding-top:40px;border-top:1px solid var(--border)}
-    .section-title{font-size:42px;font-weight:800;margin:0 0 8px}
-    .section-subtitle{font-size:24px;color:var(--muted);font-style:italic;margin:0 0 20px}
-    .section-desc{font-size:16px;color:var(--muted);margin:0 0 30px;max-width:800px;line-height:1.7}
-    
-    /* Risk items */
-    .risk-item{display:grid;grid-template-columns:40px 1fr;gap:12px;margin-bottom:16px}
-    .risk-icon{font-size:24px;line-height:1;color:#ff6b6b}
-    
-    /* API Table */
-    .api-table{width:100%;border-collapse:collapse;margin-top:20px;font-size:13px}
-    .api-table th{
-      text-align:left;padding:12px;border-bottom:1px solid var(--border);
-      font-weight:700;color:var(--accent2);font-size:11px;text-transform:uppercase;letter-spacing:.1px
-    }
-    .api-table td{
-      padding:12px;border-bottom:1px solid var(--border);font-size:12px;
-      font-family:monospace
-    }
-    .api-table tr:hover{background:rgba(255,255,255,.02)}
-    .method-post{color:var(--accent2);font-weight:700}
-    .method-get{color:#7c5cff;font-weight:700}
-    .method-put{color:#ffa500;font-weight:700}
-    .method-patch{color:#ffa500;font-weight:700}
-    .method-delete{color:#ff6b6b;font-weight:700}
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      h1{font-size:32px}
-      h2{font-size:24px}
-      .wrap{padding:16px 12px 40px}
-      .nav{flex-direction:column;align-items:flex-start;gap:8px}
-      .nav-links{width:100%;justify-content:flex-start;flex-direction:column;gap:8px}
-      .api-table{font-size:11px}
-      .api-table td{padding:8px;font-size:11px}
-    }
+    /* Nav */
+    nav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+    nav button{padding:8px 16px;border-radius:10px;border:1px solid #1e293b;background:#0f172a;color:#94a3b8;cursor:pointer;font-size:13px}
+    nav button:hover{background:#1e293b}
+    nav button.active{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.35);color:#a5b4fc}
+
+    /* Cards */
+    .card{background:#0f172a;border:1px solid #1e293b;border-radius:16px;padding:20px}
+    .grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+    .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:12px}
+    .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+    .kpi-label{font-size:11px;color:#64748b}
+    .kpi-val{font-size:28px;font-weight:700;margin-top:4px}
+    .kpi-hint{font-size:11px;color:#475569;margin-top:4px}
+    .section-title{font-size:15px;font-weight:600;margin-bottom:12px}
+    .row-actions{display:flex;gap:6px;margin-top:8px}
+
+    /* Table */
+    table{width:100%;border-collapse:collapse;font-size:13px}
+    th{text-align:left;padding:8px 10px 8px 0;font-size:11px;color:#64748b;font-weight:500}
+    td{padding:10px 10px 10px 0;border-top:1px solid #1e293b;color:#cbd5e1}
+    .tbl-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+
+    /* Badges */
+    .badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:8px;border:1px solid;font-size:11px;font-weight:500}
+    .b-red{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:#fca5a5}
+    .b-amber{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.3);color:#fcd34d}
+    .b-green{background:rgba(16,185,129,.1);border-color:rgba(16,185,129,.3);color:#6ee7b7}
+    .b-indigo{background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.3);color:#a5b4fc}
+    .b-slate{background:#1e293b;border-color:#334155;color:#cbd5e1}
+
+    /* Login */
+    .login-wrap{max-width:420px;margin:60px auto}
+    .cred-box{background:#0a0f1e;border:1px solid #1e293b;border-radius:12px;padding:12px;font-size:12px;color:#94a3b8;margin:12px 0}
+    label{font-size:12px;color:#64748b;display:block;margin-bottom:4px;margin-top:12px}
+    input[type=text],input[type=password],textarea{width:100%;padding:10px 12px;border-radius:10px;background:#0a0f1e;border:1px solid #1e293b;color:#e2e8f0;font-size:13px;outline:none;font-family:inherit}
+    input:focus,textarea:focus{border-color:rgba(99,102,241,.5)}
+    textarea{resize:vertical;min-height:120px}
+
+    /* Telemed */
+    .tele-box{background:#0a0f1e;border:1px solid #1e293b;border-radius:12px;padding:16px;font-size:12px;color:#64748b;margin-top:12px;min-height:80px}
+    .tele-live{color:#6ee7b7}
+
+    ul.feat-list{list-style:disc;padding-left:18px;color:#94a3b8;font-size:13px;line-height:2}
   </style>
 </head>
 <body>
-  <div class="wrap">
-
-    <!-- Navigation -->
-    <div class="nav">
-      <div class="brand">
-        <span class="pill">
-          <svg class="icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4z" stroke="currentColor" stroke-width="1.6"/></svg>
-          UCH • Institutional Infrastructure
-        </span>
-      </div>
-      <div class="nav-links">
-        <a href="#platform">Platform</a>
-        <a href="#risk">SaaS Risk</a>
-        <a href="#tiers">Tiers</a>
-        <a href="#assurance">Assurance</a>
-        <a href="#security">Security</a>
-        <a href="#api">API</a>
-        <a href="#contact">Contact</a>
-        <a class="btn demo" href="/demo.html">▶ Live Demo</a>
-        <a class="btn primary" href="#contact">REQUEST BRIEFING</a>
-      </div>
-    </div>
-
-    <!-- Demo Banner -->
-    <div class="demo-banner">
-      <div class="demo-banner-text">
-        <span class="demo-live-dot"></span>
-        <strong>Interactive demo is live.</strong> &nbsp;Experience the full hospital ops UI — dashboard, patients, bed management, appointments, telemedicine, and audit log.
-        &nbsp; Login: <strong>buyer@demo.com</strong> / <strong>demo123</strong>
-      </div>
-      <a class="btn demo" href="/demo.html" style="white-space:nowrap">▶ Try Interactive Demo →</a>
-    </div>
-
-    <!-- Hero Section -->
-    <div class="hero">
-      <div class="card">
-        <div class="badge">TEOS Sovereign Infrastructure · Institutional Deployment</div>
-        <h1>Own Your Digital Health Stack.<br><span style="color:var(--accent2)">Deploy With Sovereign Control.</span><br>Scale Without Lock-In.</h1>
-        
-        <p><strong>Unity Care Hospital (UCH)</strong> is a modular, sovereign-ready telehealth infrastructure platform engineered for hospital groups, healthcare operators, and national health systems that require <strong>full deployment control</strong>, compliance-aligned architecture, and long-term autonomy—<strong>without reliance on external SaaS ecosystems.</strong></p>
-        
-        <div class="grid-4">
-          <div class="card kpi">
-            <div>
-              <div class="muted" style="font-size:11px;margin-bottom:4px">Environment</div>
-              <strong>Production Available</strong>
-            </div>
-          </div>
-          <div class="card kpi">
-            <div>
-              <div class="muted" style="font-size:11px;margin-bottom:4px">Stack</div>
-              <strong>Node · MongoDB · Docker</strong>
-            </div>
-          </div>
-          <div class="card kpi">
-            <div>
-              <div class="muted" style="font-size:11px;margin-bottom:4px">Compliance</div>
-              <strong>HIPAA · GDPR · SOC 2</strong>
-            </div>
-          </div>
-          <div class="card kpi">
-            <div>
-              <div class="muted" style="font-size:11px;margin-bottom:4px">Pilot Entry</div>
-              <strong style="color:var(--accent2)">$45,000</strong>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <a class="btn primary" href="#contact" style="justify-content:center;text-align:center">REQUEST INSTITUTIONAL BRIEFING →</a>
-          <a class="btn demo" href="/demo.html" style="justify-content:center;text-align:center">▶ Try Interactive Demo</a>
-        </div>
-
-        <div class="hr"></div>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
-          <a class="card" href="https://uch.teosegypt.com" target="_blank" rel="noreferrer" style="text-decoration:none;cursor:pointer">
-            <div class="muted" style="font-size:11px;margin-bottom:4px">Live Platform</div>
-            <div><strong>uch.teosegypt.com →</strong></div>
-          </a>
-          <a class="card" href="/demo.html" style="text-decoration:none;cursor:pointer;border-color:rgba(0,211,167,.3)">
-            <div class="muted" style="font-size:11px;margin-bottom:4px"><span class="demo-live-dot"></span>Interactive Demo</div>
-            <div><strong style="color:#00d3a7">unity-care-hospital.vercel.app/demo.html →</strong></div>
-          </a>
-        </div>
-
-        <p class="small" style="margin-top:20px;border-top:1px solid var(--border);padding-top:16px">
-          <strong>Response Target:</strong> 48 Hours<br>
-          <strong>Compliance Posture:</strong> HIPAA-aligned architecture, SOC 2 principles applied. Formal certification audits scheduled post-seed funding.
-        </p>
-      </div>
-
-      <div class="card">
-        <h2>Quick Reference</h2>
-        
-        <div class="section">
-          <h2>What UCH Is</h2>
-          <ul>
-            <li>Teleconsultation + WebRTC video consultation foundation</li>
-            <li>Role-based access control (RBAC) and secure record workflows</li>
-            <li>Designed for sovereign digital health programs and private hospital groups</li>
-            <li>Modular roadmap: blockchain notarization, IoT vitals, insurance APIs, AI triage</li>
-          </ul>
-        </div>
-
-        <div class="section">
-          <h2>Pilot Success Metrics</h2>
-          <ul>
-            <li>✓ ≥ 95% uptime</li>
-            <li>✓ Verified clinician usage</li>
-            <li>✓ No critical security incidents</li>
-            <li>✓ Documented operational improvement</li>
-            <li>✓ Executive intent to expand</li>
-            <li>✓ Institution retains full data ownership</li>
-          </ul>
-        </div>
-
-        <div class="section">
-          <h2>Procurement Notes</h2>
-          <ul>
-            <li>Paid pilot (3–6 months) with conversion credits</li>
-            <li>Dedicated deployment (isolation by default)</li>
-            <li>Institution retains data ownership</li>
-            <li>Audit posture disclosed (no premature certification claims)</li>
-          </ul>
-        </div>
-
-        <!-- Demo CTA inside sidebar -->
-        <div class="hr"></div>
-        <div style="background:linear-gradient(135deg,rgba(0,211,167,.07),rgba(124,92,255,.07));border:1px solid rgba(0,211,167,.25);border-radius:12px;padding:14px">
-          <div style="font-size:13px;font-weight:700;color:#00d3a7;margin-bottom:6px"><span class="demo-live-dot"></span> Interactive Demo Available</div>
-          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Full hospital ops UI. No signup. Works in 60 seconds.</div>
-          <a class="btn demo" href="/demo.html" style="width:100%;justify-content:center">▶ Enter Demo Now</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Platform Philosophy -->
-    <div id="platform" class="section-wrapper">
-      <div class="section-title">Infrastructure.</div>
-      <div class="section-subtitle">Not a Subscription.</div>
-      <div class="section-desc">
-        UCH is engineered for institutions that cannot afford operational dependency on third-party telemedicine platforms—where data residency, procurement governance, and long-term roadmap control are board-level concerns.
-      </div>
-
-      <div class="grid-2">
-        <div class="card">
-          <div class="badge">01 / 04</div>
-          <h3>Deployment Sovereignty</h3>
-          <p>Dedicated instance per institution. No shared infrastructure. Data residency controlled by the deploying entity.</p>
-        </div>
-        <div class="card">
-          <div class="badge">02 / 04</div>
-          <h3>White-Label Capability</h3>
-          <p>Institutional branding across patient experience, provider portal, and admin operations—under your identity.</p>
-        </div>
-        <div class="card">
-          <div class="badge">03 / 04</div>
-          <h3>Compliance Architecture</h3>
-          <p>Security controls designed around HIPAA safeguard principles, GDPR workflows, and audit-ready operational patterns.</p>
-        </div>
-        <div class="card">
-          <div class="badge">04 / 04</div>
-          <h3>Multi-Hospital Scale</h3>
-          <p>Modular topology supports regional rollouts, multi-facility groups, and national programs under one engagement structure.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Strategic Risk Analysis -->
-    <div id="risk" class="section-wrapper">
-      <div class="section-title">The Structural Risk</div>
-      <div class="section-subtitle">of SaaS Lock-In</div>
-      <div style="font-size:24px;color:var(--text);margin-bottom:20px"><strong>Is Institutional.</strong></div>
-      
-      <div class="section-desc">
-        Subscription telehealth platforms can transfer operational control to a third party. When pricing, ownership, hosting jurisdictions, or API behavior changes, institutions absorb the risk—financially, operationally, and regulatorily. UCH reduces dependency risk at the contract + infrastructure level.
-      </div>
-
-      <div style="display:grid;gap:16px">
-        <div class="risk-item">
-          <div class="risk-icon">✕</div>
-          <div><h3>Subscription Escalation</h3><p style="margin:0">Recurring SaaS costs can grow with scale and contract renewals—creating budget volatility.</p></div>
-        </div>
-        <div class="risk-item">
-          <div class="risk-icon">✕</div>
-          <div><h3>Data Residency Uncertainty</h3><p style="margin:0">Third-party hosting can introduce cross-jurisdiction exposure and audit complexity.</p></div>
-        </div>
-        <div class="risk-item">
-          <div class="risk-icon">✕</div>
-          <div><h3>Vendor Acquisition / Roadmap Risk</h3><p style="margin:0">M&A, repricing, or feature deprecation can force unplanned migrations and operational disruption.</p></div>
-        </div>
-        <div class="risk-item">
-          <div class="risk-icon">✕</div>
-          <div><h3>Exit Barriers</h3><p style="margin:0">Portability is often limited by contract terms, integration complexity, and data migration cost.</p></div>
-        </div>
-        <div class="risk-item">
-          <div class="risk-icon">✕</div>
-          <div><h3>National Compliance Conflicts</h3><p style="margin:0">Sovereign programs may require local control, air-gap options, and institution-owned operational continuity.</p></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Deployment Tiers -->
-    <div id="tiers" class="section-wrapper">
-      <div class="section-title">Contracted for Ownership.</div>
-      <div class="section-subtitle">Not Billed Monthly.</div>
-      <div class="section-desc">
-        Pricing is indicative and engagement-scoped (facilities, integrations, hosting model, data residency, and regulatory packaging). Pilot fees are credited on conversion.
-      </div>
-
-      <div class="pricing">
-        <div class="card">
-          <div class="badge">Entry Point</div>
-          <h3>Institutional Pilot</h3>
-          <div class="price">$45K</div>
-          <div class="muted">entry</div>
-          <div class="hr"></div>
-          <ul>
-            <li>Single-facility controlled deployment</li>
-            <li>Institutional validation</li>
-            <li>Procurement readiness</li>
-            <li>Fully credited toward upgrade tiers</li>
-          </ul>
-          <div class="hr"></div>
-          <p class="small">Optional annual maintenance: 12–18%</p>
-        </div>
-        <div class="card">
-          <div class="badge">Regional License</div>
-          <h3>Institutional License</h3>
-          <div class="price">$89K+</div>
-          <div class="muted">/ region</div>
-          <div class="hr"></div>
-          <ul>
-            <li>Dedicated regional instance</li>
-            <li>White-label branding</li>
-            <li>API-first integration surface</li>
-            <li>Enterprise support structure</li>
-          </ul>
-          <div class="hr"></div>
-          <p class="small">Optional annual maintenance: 12–18%</p>
-        </div>
-        <div class="card">
-          <div class="badge">Ownership Transfer</div>
-          <h3>Full IP Transfer</h3>
-          <div class="price">$275K+</div>
-          <div class="muted">one-time</div>
-          <div class="hr"></div>
-          <ul>
-            <li>Repository + source handover</li>
-            <li>Architecture + deployment docs</li>
-            <li>Procurement diligence pack</li>
-            <li>Transition support engagement</li>
-          </ul>
-          <div class="hr"></div>
-          <p class="small">Maintenance optional (contracted as needed)</p>
-        </div>
-        <div class="card">
-          <div class="badge">National / Government</div>
-          <h3>Sovereign Stack</h3>
-          <div class="price">$425K+</div>
-          <div class="muted">program</div>
-          <div class="hr"></div>
-          <ul>
-            <li>National-scale topology</li>
-            <li>Data residency guarantees</li>
-            <li>Air-gapped deployment option</li>
-            <li>Priority support + governance model</li>
-          </ul>
-          <div class="hr"></div>
-          <p class="small">Maintenance negotiated per contract</p>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:20px">
-        <h3>Pilot Entry</h3>
-        <p>Procurement teams often require a controlled pilot before full commitment. UCH's pilot is structured as a board-approvable entry line item and is <strong>fully credited</strong> toward Regional, Ownership, or Sovereign tiers upon conversion.</p>
-        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
-          <a class="btn primary" href="#contact">Start Pilot →</a>
-          <a class="btn demo" href="/demo.html">▶ See Demo First</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Procurement Readiness -->
-    <div id="assurance" class="section-wrapper">
-      <div class="section-title">Institutional Assurance</div>
-      <div class="section-subtitle">Package</div>
-      <div class="section-desc">Documentation is provided to verified institutional buyers. NDA available on request.</div>
-      <div class="grid">
-        <div class="card"><h3>Due Diligence Package</h3><p>Architecture overview, deployment model, integration surface, financial projections, and compliance mapping (under NDA).</p></div>
-        <div class="card"><h3>Data Processing Agreement (DPA)</h3><p>GDPR-aligned DPA template clarifying controller/processor roles and data handling boundaries (engagement-scoped).</p></div>
-        <div class="card"><h3>Deployment SLA Framework</h3><p>Uptime targets, response-time guarantees, escalation paths, and support tiers defined contractually.</p></div>
-        <div class="card"><h3>Source Code Escrow</h3><p>Escrow option available for Enterprise/Sovereign engagements to mitigate vendor continuity risk.</p></div>
-        <div class="card"><h3>Architecture Whitepaper (PDF)</h3><p>Technical brief for CIO/CTO review: security model, topology, deployment pathways, and integration strategy.</p></div>
-        <div class="card"><h3>IP Transfer Clarity</h3><p>Ownership tier includes documented handover, repository transfer, and structured transition support.</p></div>
-      </div>
-    </div>
-
-    <!-- Security Architecture -->
-    <div id="security" class="section-wrapper">
-      <div class="section-title">Enterprise Controls.</div>
-      <div class="section-subtitle">Designed for Healthcare.</div>
-      <div class="section-desc">Control design supports institutional security programs and audit workflows. Specific configurations may vary by deployment scope.</div>
-      <div class="grid">
-        <div class="card"><h3>JWT Authentication</h3><p>Access + refresh token model with token rotation and logout invalidation patterns.</p></div>
-        <div class="card"><h3>RBAC Middleware</h3><p>Role-based access controls across clinical and administrative roles via route protection.</p></div>
-        <div class="card"><h3>Password Hashing</h3><p>bcrypt-based hashing with secure storage patterns and reset-first recovery workflows.</p></div>
-        <div class="card"><h3>Rate Limiting</h3><p>Abuse controls for authentication and sensitive routes to reduce brute-force exposure.</p></div>
-        <div class="card"><h3>Security Headers</h3><p>HSTS, referrer policy, and hardening header suite via standard middleware patterns.</p></div>
-        <div class="card"><h3>Input Validation</h3><p>Request validation on mutation routes to reduce injection and malformed payload risk.</p></div>
-        <div class="card"><h3>GDPR Workflows</h3><p>Support for data export and soft-delete workflows (deployment and policy scoped).</p></div>
-        <div class="card"><h3>Error Handling</h3><p>Structured API errors to reduce internal information exposure in client responses.</p></div>
-        <div class="card"><h3>Graceful Shutdown</h3><p>Container-friendly shutdown patterns to reduce disruption during deploy cycles.</p></div>
-      </div>
-    </div>
-
-    <!-- API Surface -->
-    <div id="api" class="section-wrapper">
-      <div class="section-title">API Surface</div>
-      <div class="section-subtitle">Core Endpoints</div>
-      <div class="section-desc">The table below is a representative core surface used in institutional deployments.</div>
-
-      <table class="api-table">
-        <thead>
-          <tr><th>Method</th><th>Endpoint</th><th>Auth</th><th>Function</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><span class="method-post">POST</span></td><td>/api/auth/login</td><td>Public</td><td>Login — issues access + refresh tokens</td></tr>
-          <tr><td><span class="method-post">POST</span></td><td>/api/auth/refresh</td><td>Public</td><td>Rotate tokens</td></tr>
-          <tr><td><span class="method-post">POST</span></td><td>/api/auth/logout</td><td>🔒</td><td>Logout via token invalidation</td></tr>
-          <tr><td><span class="method-post">POST</span></td><td>/api/users/register</td><td>Public</td><td>Patient registration</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/api/users/me</td><td>🔒</td><td>Current user profile</td></tr>
-          <tr><td><span class="method-put">PUT</span></td><td>/api/users/update</td><td>🔒</td><td>Update profile</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/api/users/</td><td>🔒 Admin</td><td>List all users (paginated)</td></tr>
-          <tr><td><span class="method-post">POST</span></td><td>/api/appointments</td><td>🔒</td><td>Book appointment</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/api/appointments/patient/:id</td><td>🔒</td><td>Patient's appointments</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/api/appointments/doctor/:id</td><td>🔒</td><td>Doctor's appointments</td></tr>
-          <tr><td><span class="method-patch">PATCH</span></td><td>/api/appointments/:id</td><td>🔒</td><td>Update / cancel</td></tr>
-          <tr><td><span class="method-delete">DELETE</span></td><td>/api/appointments/:id</td><td>🔒</td><td>Delete</td></tr>
-          <tr><td><span class="method-post">POST</span></td><td>/api/records</td><td>🔒 Doctor/Admin</td><td>Create medical record</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/api/records/patient/:id</td><td>🔒</td><td>Patient records</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/api/records/patient/:id/export</td><td>🔒</td><td>GDPR data export</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/api/records/:id</td><td>🔒</td><td>Single record</td></tr>
-          <tr><td><span class="method-patch">PATCH</span></td><td>/api/records/:id</td><td>🔒 Doctor/Admin</td><td>Update record</td></tr>
-          <tr><td><span class="method-delete">DELETE</span></td><td>/api/records/:id</td><td>🔒 Admin</td><td>Soft-delete (GDPR)</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/api/analytics/trends</td><td>🔒 Admin/Doctor</td><td>Appointment volume trends</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/api/analytics/stats</td><td>🔒 Admin</td><td>Status breakdown</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/api/analytics/diagnoses</td><td>🔒 Admin/Doctor</td><td>Top diagnoses</td></tr>
-          <tr><td><span class="method-get">GET</span></td><td>/health</td><td>Public</td><td>Health check</td></tr>
-        </tbody>
-      </table>
-
-      <div class="card" style="margin-top:20px">
-        <p class="small"><strong>Placeholder routes (milestone-gated):</strong> /api/blockchain, /api/care, /api/chatbot, /api/iot, /api/monitoring</p>
-      </div>
-    </div>
-
-    <!-- Contact Section -->
-    <div id="contact" class="section-wrapper">
-      <div class="footer">
-        <div class="card">
-          <h2>Contact</h2>
-          <p class="muted">Institutional inquiries only. We respond within <strong>48 hours.</strong></p>
-          <div class="links" style="gap:10px;display:flex;flex-direction:column">
-            <a class="btn" href="mailto:info@uch.teosegypt.com">📧 info@uch.teosegypt.com</a>
-            <a class="btn" href="tel:+201006167293">📞 +20 100 616 7293</a>
-            <a class="btn" href="https://uch.teosegypt.com" target="_blank" rel="noreferrer">🌐 uch.teosegypt.com</a>
-          </div>
-          <div class="hr"></div>
-          <p class="small">
-            <strong>Organization:</strong> Elmahrosa International · EST. 2007<br>
-            Institutional digital health infrastructure for sovereign deployment.
-          </p>
-        </div>
-        <div class="card">
-          <h2>Resources</h2>
-          <div style="display:flex;flex-direction:column;gap:12px">
-            <a class="btn demo" href="/demo.html">▶ Interactive Demo →</a>
-            <a class="btn" href="https://github.com/Elmahrosa/Unity-Care-Hospital" target="_blank" rel="noreferrer">GitHub Repository →</a>
-            <a class="btn" href="https://vtmueukx.manus.space" target="_blank" rel="noreferrer">Parent Organization →</a>
-          </div>
-          <div class="hr"></div>
-          <p class="small">© <span id="y"></span> Unity Care Hospital (UCH). All rights reserved.</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href.length > 1) {
-          e.preventDefault();
-          const t = document.querySelector(href);
-          if (t) t.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-  </script>
+  <div id="app"></div>
+  <script src="./demo-data.js"></script>
+  <script src="./demo.js"></script>
 </body>
 </html>
