@@ -44,7 +44,17 @@
     .btn:hover{border-color:var(--accent2);background:rgba(0,211,167,.1)}
     .btn.primary{background:linear-gradient(135deg, rgba(124,92,255,.95), rgba(0,211,167,.80));border:0;color:#061018;font-weight:800}
     .btn.primary:hover{opacity:.9}
-    
+    .btn.demo{
+      background:linear-gradient(135deg,rgba(0,211,167,.2),rgba(0,211,167,.08));
+      border:1px solid rgba(0,211,167,.45);color:#00d3a7;font-weight:700;
+      animation:pulse-border 2.5s ease-in-out infinite;
+    }
+    .btn.demo:hover{background:rgba(0,211,167,.25)}
+    @keyframes pulse-border{
+      0%,100%{box-shadow:0 0 0 0 rgba(0,211,167,.25)}
+      50%{box-shadow:0 0 0 6px rgba(0,211,167,0)}
+    }
+
     /* Hero Section */
     .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}
     @media (max-width: 900px){.hero{grid-template-columns:1fr}}
@@ -76,7 +86,19 @@
     .icon{width:18px;height:18px;display:inline-block}
     .pill{display:inline-flex;gap:8px;align-items:center;padding:8px 12px;border:1px solid var(--border);border-radius:999px;background:rgba(255,255,255,.03);color:var(--muted);font-size:12px}
     .hr{height:1px;background:var(--border);margin:16px 0}
-    
+
+    /* Demo banner */
+    .demo-banner{
+      display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+      background:linear-gradient(135deg,rgba(0,211,167,.07),rgba(124,92,255,.07));
+      border:1px solid rgba(0,211,167,.25);border-radius:16px;padding:16px 20px;
+      margin-bottom:24px;
+    }
+    .demo-banner-text{font-size:14px;color:var(--muted)}
+    .demo-banner-text strong{color:#00d3a7}
+    .demo-live-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#00d3a7;margin-right:6px;animation:blink 1.4s ease-in-out infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
     /* Sections */
     .section-wrapper{margin-top:60px;padding-top:40px;border-top:1px solid var(--border)}
     .section-title{font-size:42px;font-weight:800;margin:0 0 8px}
@@ -135,8 +157,19 @@
         <a href="#security">Security</a>
         <a href="#api">API</a>
         <a href="#contact">Contact</a>
+        <a class="btn demo" href="/demo.html">▶ Live Demo</a>
         <a class="btn primary" href="#contact">REQUEST BRIEFING</a>
       </div>
+    </div>
+
+    <!-- Demo Banner -->
+    <div class="demo-banner">
+      <div class="demo-banner-text">
+        <span class="demo-live-dot"></span>
+        <strong>Interactive demo is live.</strong> &nbsp;Experience the full hospital ops UI — dashboard, patients, bed management, appointments, telemedicine, and audit log.
+        &nbsp; Login: <strong>buyer@demo.com</strong> / <strong>demo123</strong>
+      </div>
+      <a class="btn demo" href="/demo.html" style="white-space:nowrap">▶ Try Interactive Demo →</a>
     </div>
 
     <!-- Hero Section -->
@@ -176,7 +209,7 @@
 
         <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
           <a class="btn primary" href="#contact" style="justify-content:center;text-align:center">REQUEST INSTITUTIONAL BRIEFING →</a>
-          <a class="btn" href="#" style="justify-content:center;text-align:center">DOWNLOAD ARCHITECTURE OVERVIEW (PDF)</a>
+          <a class="btn demo" href="/demo.html" style="justify-content:center;text-align:center">▶ Try Interactive Demo</a>
         </div>
 
         <div class="hr"></div>
@@ -186,9 +219,9 @@
             <div class="muted" style="font-size:11px;margin-bottom:4px">Live Platform</div>
             <div><strong>uch.teosegypt.com →</strong></div>
           </a>
-          <a class="card" href="https://teos-uch.space.z.ai" target="_blank" rel="noreferrer" style="text-decoration:none;cursor:pointer">
-            <div class="muted" style="font-size:11px;margin-bottom:4px">Demo Environment</div>
-            <div><strong>uchteos.space.z.ai →</strong></div>
+          <a class="card" href="/demo.html" style="text-decoration:none;cursor:pointer;border-color:rgba(0,211,167,.3)">
+            <div class="muted" style="font-size:11px;margin-bottom:4px"><span class="demo-live-dot"></span>Interactive Demo</div>
+            <div><strong style="color:#00d3a7">unity-care-hospital.vercel.app/demo.html →</strong></div>
           </a>
         </div>
 
@@ -231,6 +264,14 @@
             <li>Institution retains data ownership</li>
             <li>Audit posture disclosed (no premature certification claims)</li>
           </ul>
+        </div>
+
+        <!-- Demo CTA inside sidebar -->
+        <div class="hr"></div>
+        <div style="background:linear-gradient(135deg,rgba(0,211,167,.07),rgba(124,92,255,.07));border:1px solid rgba(0,211,167,.25);border-radius:12px;padding:14px">
+          <div style="font-size:13px;font-weight:700;color:#00d3a7;margin-bottom:6px"><span class="demo-live-dot"></span> Interactive Demo Available</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:10px">Full hospital ops UI. No signup. Works in 60 seconds.</div>
+          <a class="btn demo" href="/demo.html" style="width:100%;justify-content:center">▶ Enter Demo Now</a>
         </div>
       </div>
     </div>
@@ -280,38 +321,23 @@
       <div style="display:grid;gap:16px">
         <div class="risk-item">
           <div class="risk-icon">✕</div>
-          <div>
-            <h3>Subscription Escalation</h3>
-            <p style="margin:0">Recurring SaaS costs can grow with scale and contract renewals—creating budget volatility.</p>
-          </div>
+          <div><h3>Subscription Escalation</h3><p style="margin:0">Recurring SaaS costs can grow with scale and contract renewals—creating budget volatility.</p></div>
         </div>
         <div class="risk-item">
           <div class="risk-icon">✕</div>
-          <div>
-            <h3>Data Residency Uncertainty</h3>
-            <p style="margin:0">Third-party hosting can introduce cross-jurisdiction exposure and audit complexity.</p>
-          </div>
+          <div><h3>Data Residency Uncertainty</h3><p style="margin:0">Third-party hosting can introduce cross-jurisdiction exposure and audit complexity.</p></div>
         </div>
         <div class="risk-item">
           <div class="risk-icon">✕</div>
-          <div>
-            <h3>Vendor Acquisition / Roadmap Risk</h3>
-            <p style="margin:0">M&A, repricing, or feature deprecation can force unplanned migrations and operational disruption.</p>
-          </div>
+          <div><h3>Vendor Acquisition / Roadmap Risk</h3><p style="margin:0">M&A, repricing, or feature deprecation can force unplanned migrations and operational disruption.</p></div>
         </div>
         <div class="risk-item">
           <div class="risk-icon">✕</div>
-          <div>
-            <h3>Exit Barriers</h3>
-            <p style="margin:0">Portability is often limited by contract terms, integration complexity, and data migration cost.</p>
-          </div>
+          <div><h3>Exit Barriers</h3><p style="margin:0">Portability is often limited by contract terms, integration complexity, and data migration cost.</p></div>
         </div>
         <div class="risk-item">
           <div class="risk-icon">✕</div>
-          <div>
-            <h3>National Compliance Conflicts</h3>
-            <p style="margin:0">Sovereign programs may require local control, air-gap options, and institution-owned operational continuity.</p>
-          </div>
+          <div><h3>National Compliance Conflicts</h3><p style="margin:0">Sovereign programs may require local control, air-gap options, and institution-owned operational continuity.</p></div>
         </div>
       </div>
     </div>
@@ -340,7 +366,6 @@
           <div class="hr"></div>
           <p class="small">Optional annual maintenance: 12–18%</p>
         </div>
-
         <div class="card">
           <div class="badge">Regional License</div>
           <h3>Institutional License</h3>
@@ -356,7 +381,6 @@
           <div class="hr"></div>
           <p class="small">Optional annual maintenance: 12–18%</p>
         </div>
-
         <div class="card">
           <div class="badge">Ownership Transfer</div>
           <h3>Full IP Transfer</h3>
@@ -372,7 +396,6 @@
           <div class="hr"></div>
           <p class="small">Maintenance optional (contracted as needed)</p>
         </div>
-
         <div class="card">
           <div class="badge">National / Government</div>
           <h3>Sovereign Stack</h3>
@@ -393,7 +416,10 @@
       <div class="card" style="margin-top:20px">
         <h3>Pilot Entry</h3>
         <p>Procurement teams often require a controlled pilot before full commitment. UCH's pilot is structured as a board-approvable entry line item and is <strong>fully credited</strong> toward Regional, Ownership, or Sovereign tiers upon conversion.</p>
-        <a class="btn primary" href="#contact" style="margin-top:12px">Start Pilot →</a>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:12px">
+          <a class="btn primary" href="#contact">Start Pilot →</a>
+          <a class="btn demo" href="/demo.html">▶ See Demo First</a>
+        </div>
       </div>
     </div>
 
@@ -401,35 +427,14 @@
     <div id="assurance" class="section-wrapper">
       <div class="section-title">Institutional Assurance</div>
       <div class="section-subtitle">Package</div>
-      <div class="section-desc">
-        Documentation is provided to verified institutional buyers. NDA available on request.
-      </div>
-
+      <div class="section-desc">Documentation is provided to verified institutional buyers. NDA available on request.</div>
       <div class="grid">
-        <div class="card">
-          <h3>Due Diligence Package</h3>
-          <p>Architecture overview, deployment model, integration surface, financial projections, and compliance mapping (under NDA).</p>
-        </div>
-        <div class="card">
-          <h3>Data Processing Agreement (DPA)</h3>
-          <p>GDPR-aligned DPA template clarifying controller/processor roles and data handling boundaries (engagement-scoped).</p>
-        </div>
-        <div class="card">
-          <h3>Deployment SLA Framework</h3>
-          <p>Uptime targets, response-time guarantees, escalation paths, and support tiers defined contractually.</p>
-        </div>
-        <div class="card">
-          <h3>Source Code Escrow</h3>
-          <p>Escrow option available for Enterprise/Sovereign engagements to mitigate vendor continuity risk.</p>
-        </div>
-        <div class="card">
-          <h3>Architecture Whitepaper (PDF)</h3>
-          <p>Technical brief for CIO/CTO review: security model, topology, deployment pathways, and integration strategy.</p>
-        </div>
-        <div class="card">
-          <h3>IP Transfer Clarity</h3>
-          <p>Ownership tier includes documented handover, repository transfer, and structured transition support.</p>
-        </div>
+        <div class="card"><h3>Due Diligence Package</h3><p>Architecture overview, deployment model, integration surface, financial projections, and compliance mapping (under NDA).</p></div>
+        <div class="card"><h3>Data Processing Agreement (DPA)</h3><p>GDPR-aligned DPA template clarifying controller/processor roles and data handling boundaries (engagement-scoped).</p></div>
+        <div class="card"><h3>Deployment SLA Framework</h3><p>Uptime targets, response-time guarantees, escalation paths, and support tiers defined contractually.</p></div>
+        <div class="card"><h3>Source Code Escrow</h3><p>Escrow option available for Enterprise/Sovereign engagements to mitigate vendor continuity risk.</p></div>
+        <div class="card"><h3>Architecture Whitepaper (PDF)</h3><p>Technical brief for CIO/CTO review: security model, topology, deployment pathways, and integration strategy.</p></div>
+        <div class="card"><h3>IP Transfer Clarity</h3><p>Ownership tier includes documented handover, repository transfer, and structured transition support.</p></div>
       </div>
     </div>
 
@@ -437,47 +442,17 @@
     <div id="security" class="section-wrapper">
       <div class="section-title">Enterprise Controls.</div>
       <div class="section-subtitle">Designed for Healthcare.</div>
-      <div class="section-desc">
-        Control design supports institutional security programs and audit workflows. Specific configurations may vary by deployment scope.
-      </div>
-
+      <div class="section-desc">Control design supports institutional security programs and audit workflows. Specific configurations may vary by deployment scope.</div>
       <div class="grid">
-        <div class="card">
-          <h3>JWT Authentication</h3>
-          <p>Access + refresh token model with token rotation and logout invalidation patterns.</p>
-        </div>
-        <div class="card">
-          <h3>RBAC Middleware</h3>
-          <p>Role-based access controls across clinical and administrative roles via route protection.</p>
-        </div>
-        <div class="card">
-          <h3>Password Hashing</h3>
-          <p>bcrypt-based hashing with secure storage patterns and reset-first recovery workflows.</p>
-        </div>
-        <div class="card">
-          <h3>Rate Limiting</h3>
-          <p>Abuse controls for authentication and sensitive routes to reduce brute-force exposure.</p>
-        </div>
-        <div class="card">
-          <h3>Security Headers</h3>
-          <p>HSTS, referrer policy, and hardening header suite via standard middleware patterns.</p>
-        </div>
-        <div class="card">
-          <h3>Input Validation</h3>
-          <p>Request validation on mutation routes to reduce injection and malformed payload risk.</p>
-        </div>
-        <div class="card">
-          <h3>GDPR Workflows</h3>
-          <p>Support for data export and soft-delete workflows (deployment and policy scoped).</p>
-        </div>
-        <div class="card">
-          <h3>Error Handling</h3>
-          <p>Structured API errors to reduce internal information exposure in client responses.</p>
-        </div>
-        <div class="card">
-          <h3>Graceful Shutdown</h3>
-          <p>Container-friendly shutdown patterns to reduce disruption during deploy cycles.</p>
-        </div>
+        <div class="card"><h3>JWT Authentication</h3><p>Access + refresh token model with token rotation and logout invalidation patterns.</p></div>
+        <div class="card"><h3>RBAC Middleware</h3><p>Role-based access controls across clinical and administrative roles via route protection.</p></div>
+        <div class="card"><h3>Password Hashing</h3><p>bcrypt-based hashing with secure storage patterns and reset-first recovery workflows.</p></div>
+        <div class="card"><h3>Rate Limiting</h3><p>Abuse controls for authentication and sensitive routes to reduce brute-force exposure.</p></div>
+        <div class="card"><h3>Security Headers</h3><p>HSTS, referrer policy, and hardening header suite via standard middleware patterns.</p></div>
+        <div class="card"><h3>Input Validation</h3><p>Request validation on mutation routes to reduce injection and malformed payload risk.</p></div>
+        <div class="card"><h3>GDPR Workflows</h3><p>Support for data export and soft-delete workflows (deployment and policy scoped).</p></div>
+        <div class="card"><h3>Error Handling</h3><p>Structured API errors to reduce internal information exposure in client responses.</p></div>
+        <div class="card"><h3>Graceful Shutdown</h3><p>Container-friendly shutdown patterns to reduce disruption during deploy cycles.</p></div>
       </div>
     </div>
 
@@ -485,18 +460,11 @@
     <div id="api" class="section-wrapper">
       <div class="section-title">API Surface</div>
       <div class="section-subtitle">Core Endpoints</div>
-      <div class="section-desc">
-        The table below is a representative core surface used in institutional deployments.
-      </div>
+      <div class="section-desc">The table below is a representative core surface used in institutional deployments.</div>
 
       <table class="api-table">
         <thead>
-          <tr>
-            <th>Method</th>
-            <th>Endpoint</th>
-            <th>Auth</th>
-            <th>Function</th>
-          </tr>
+          <tr><th>Method</th><th>Endpoint</th><th>Auth</th><th>Function</th></tr>
         </thead>
         <tbody>
           <tr><td><span class="method-post">POST</span></td><td>/api/auth/login</td><td>Public</td><td>Login — issues access + refresh tokens</td></tr>
@@ -549,9 +517,9 @@
         <div class="card">
           <h2>Resources</h2>
           <div style="display:flex;flex-direction:column;gap:12px">
+            <a class="btn demo" href="/demo.html">▶ Interactive Demo →</a>
             <a class="btn" href="https://github.com/Elmahrosa/Unity-Care-Hospital" target="_blank" rel="noreferrer">GitHub Repository →</a>
             <a class="btn" href="https://vtmueukx.manus.space" target="_blank" rel="noreferrer">Parent Organization →</a>
-            <a class="btn" href="https://teos-uch.space.z.ai" target="_blank" rel="noreferrer">Demo Environment →</a>
           </div>
           <div class="hr"></div>
           <p class="small">© <span id="y"></span> Unity Care Hospital (UCH). All rights reserved.</p>
@@ -563,17 +531,13 @@
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
-    
-    // Smooth scroll for navigation links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
-        if (href !== '#' && href !== '#contact') {
+        if (href.length > 1) {
           e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
+          const t = document.querySelector(href);
+          if (t) t.scrollIntoView({ behavior: 'smooth' });
         }
       });
     });
