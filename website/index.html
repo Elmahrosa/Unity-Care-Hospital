@@ -1,1 +1,621 @@
-PASTE_THE_FINAL_INDEX_HTML_HERE
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unity Care Hospital (UCH) — Sovereign Telehealth Infrastructure</title>
+  <meta name="description" content="Unity Care Hospital (UCH) is a modular, sovereign-ready telehealth infrastructure platform for hospital groups, healthcare operators, and national health systems. Deploy with full control, compliance-aligned architecture, and long-term autonomy." />
+  <meta name="keywords" content="telehealth, healthcare infrastructure, sovereign deployment, HIPAA, GDPR, institutional healthcare" />
+  <meta property="og:title" content="Unity Care Hospital (UCH) — Sovereign Telehealth Infrastructure" />
+  <meta property="og:description" content="Modular telehealth infrastructure for institutional deployment. Full deployment control, compliance architecture, and operational autonomy." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://uch.teosegypt.com" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #060d1a;
+      --surface: #0c1629;
+      --surface2: #101f38;
+      --border: rgba(255,255,255,.08);
+      --border-accent: rgba(0,210,150,.3);
+      --text: #e8f0fe;
+      --muted: #7b93bf;
+      --muted2: #4d6a99;
+      --accent: #00d296;
+      --accent-dim: rgba(0,210,150,.12);
+      --accent2: #1a6bff;
+      --danger: #ff5e5e;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Figtree', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: .4;
+    }
+
+    .glow-tl, .glow-tr, .glow-br {
+      position: fixed; border-radius: 50%; filter: blur(120px);
+      pointer-events: none; z-index: 0;
+    }
+    .glow-tl { width: 700px; height: 500px; top: -200px; left: -200px; background: radial-gradient(circle, rgba(0,210,150,.08), transparent 70%); }
+    .glow-tr { width: 600px; height: 600px; top: -100px; right: -200px; background: radial-gradient(circle, rgba(26,107,255,.07), transparent 70%); }
+    .glow-br { width: 800px; height: 600px; bottom: -200px; right: -200px; background: radial-gradient(circle, rgba(0,210,150,.05), transparent 70%); }
+
+    .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px 100px; position: relative; z-index: 1; }
+
+    nav {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 16px 24px; flex-wrap: wrap; position: sticky; top: 0; z-index: 100;
+      background: rgba(6,13,26,.92); backdrop-filter: blur(20px);
+      margin: 0 -24px 56px; border-bottom: 1px solid var(--border);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'DM Serif Display', serif; font-size: 18px; letter-spacing: .3px;
+    }
+    .nav-cross {
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid var(--accent); border-radius: 8px; color: var(--accent); font-size: 18px;
+    }
+    .nav-links { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    .nav-links a {
+      font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .12em;
+      padding: 6px 10px; border-radius: 6px; transition: all .2s; font-weight: 600; text-decoration: none;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,.04); }
+    .nav-cta { background: var(--accent) !important; color: #060d1a !important; font-weight: 800 !important; padding: 7px 14px !important; border-radius: 8px !important; }
+    .nav-cta:hover { opacity: .88 !important; }
+    .nav-demo { border: 1px solid var(--border-accent) !important; color: var(--accent) !important; font-weight: 700 !important; }
+    .nav-demo:hover { background: var(--accent-dim) !important; }
+
+    .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px; align-items: start; margin-bottom: 20px; }
+    @media(max-width:960px) { .hero { grid-template-columns: 1fr; } }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); border: 1px solid var(--border-accent); border-radius: 999px;
+      padding: 6px 14px; margin-bottom: 20px; background: var(--accent-dim);
+    }
+    .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: blink 1.6s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 5vw, 58px); line-height: 1.05;
+      font-weight: 400; margin-bottom: 20px; letter-spacing: -.5px;
+    }
+    h1 em { font-style: italic; color: var(--accent); }
+    h1 span { color: var(--muted); }
+
+    .hero-desc { font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; max-width: 560px; }
+    .hero-desc strong { color: var(--text); }
+
+    .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 32px; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 20px; border-radius: 10px; border: 1px solid var(--border);
+      font-size: 13px; font-weight: 700; cursor: pointer; transition: all .22s;
+      text-decoration: none; letter-spacing: .02em; font-family: 'Figtree', sans-serif;
+    }
+    .btn-primary { background: var(--accent); border-color: var(--accent); color: #060d1a; }
+    .btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+    .btn-demo { background: var(--accent-dim); border-color: var(--border-accent); color: var(--accent); }
+    .btn-demo:hover { background: rgba(0,210,150,.2); transform: translateY(-1px); }
+    .btn-ghost { background: rgba(255,255,255,.03); color: var(--muted); }
+    .btn-ghost:hover { background: rgba(255,255,255,.07); color: var(--text); }
+
+    .stats4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+    @media(max-width:700px) { .stats4 { grid-template-columns: repeat(2,1fr); } }
+
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px;
+      animation: fadeUp .5s both;
+    }
+    .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--muted2); margin-bottom: 4px; }
+    .stat-val { font-size: 14px; font-weight: 700; color: var(--text); }
+    .stat-val.green { color: var(--accent); }
+
+    .access-banner {
+      background: linear-gradient(135deg, rgba(0,210,150,.06), rgba(26,107,255,.06));
+      border: 1px solid var(--border-accent); border-radius: 14px; padding: 18px 22px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      flex-wrap: wrap; margin-bottom: 56px;
+    }
+    .access-left { display: flex; align-items: flex-start; gap: 14px; }
+    .access-icon { font-size: 22px; margin-top: 2px; }
+    .access-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .access-desc { font-size: 12px; color: var(--muted); }
+    .access-desc a { color: var(--accent); font-weight: 600; }
+    .access-steps { display: flex; gap: 8px; align-items: center; font-size: 11px; color: var(--muted2); flex-wrap: wrap; margin-top: 6px; }
+    .access-steps span { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; }
+
+    .section { margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--border); }
+    .sec-label { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .sec-title { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 4vw, 44px); font-weight: 400; line-height: 1.1; margin-bottom: 8px; }
+    .sec-title em { font-style: italic; color: var(--accent); }
+    .sec-sub { font-size: 16px; color: var(--muted); margin-bottom: 36px; max-width: 680px; line-height: 1.7; }
+    .divider { height: 1px; border: none; background: var(--border); margin: 16px 0; }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 22px;
+      transition: border-color .2s;
+    }
+    .card:hover { border-color: rgba(255,255,255,.16); }
+    .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+    .card p { font-size: 13px; color: var(--muted); line-height: 1.65; margin: 0; }
+
+    .grid2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+    .grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+    @media(max-width:900px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+
+    .badge-num {
+      display: inline-block; font-family: 'DM Mono', monospace; font-size: 10px;
+      background: var(--accent-dim); color: var(--accent); border: 1px solid var(--border-accent);
+      border-radius: 6px; padding: 2px 8px; margin-bottom: 10px; letter-spacing: .08em;
+    }
+
+    .risk-table { width: 100%; border-collapse: collapse; }
+    .risk-table th { text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: var(--muted2); border-bottom: 1px solid var(--border); }
+    .risk-table td { padding: 14px; font-size: 13px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .risk-table tr:last-child td { border-bottom: none; }
+    .risk-table td:first-child { color: var(--muted); font-weight: 600; }
+    .risk-bad { color: var(--danger); font-size: 12px; }
+    .risk-good { color: var(--accent); font-size: 12px; font-weight: 700; }
+
+    .pricing-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+    @media(max-width:1100px) { .pricing-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width:600px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+    .price-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 22px; display: flex; flex-direction: column; transition: border-color .2s;
+    }
+    .price-card:hover { border-color: rgba(0,210,150,.3); }
+    .price-card.featured { border-color: var(--border-accent); background: linear-gradient(160deg, rgba(0,210,150,.05), var(--surface)); }
+    .price-tier { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .14em; color: var(--muted2); margin-bottom: 8px; }
+    .price-name { font-size: 16px; font-weight: 800; margin-bottom: 12px; }
+    .price-amount { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+    .price-period { font-size: 11px; color: var(--muted2); margin-bottom: 16px; }
+    .price-divider { height: 1px; background: var(--border); margin: 14px 0; }
+    .price-features { list-style: none; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+    .price-features li { font-size: 12px; color: var(--muted); display: flex; gap: 8px; align-items: flex-start; }
+    .price-features li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .price-note { font-size: 11px; color: var(--muted2); margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-family: 'DM Mono', monospace; }
+
+    .security-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+    @media(max-width:900px) { .security-grid { grid-template-columns: 1fr; } }
+    .sec-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px; display: flex; gap: 14px; align-items: flex-start; }
+    .sec-card-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+    .sec-card-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .sec-card-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    .api-table { width: 100%; border-collapse: collapse; font-family: 'DM Mono', monospace; font-size: 12px; }
+    .api-table th { text-align: left; padding: 10px 14px; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; color: var(--muted2); border-bottom: 1px solid var(--border); }
+    .api-table td { padding: 11px 14px; border-bottom: 1px solid rgba(255,255,255,.04); }
+    .api-table tr:hover { background: rgba(255,255,255,.015); }
+    .m-post { color: #00d296; font-weight: 700; }
+    .m-get  { color: #7ca4ff; font-weight: 700; }
+    .m-put  { color: #ffa44a; font-weight: 700; }
+    .m-patch { color: #ffa44a; font-weight: 700; }
+    .m-delete { color: #ff6060; font-weight: 700; }
+    .auth-lock { color: var(--muted2); font-size: 11px; }
+    .ep-desc { color: var(--muted); font-size: 11px; }
+
+    .contact-grid { display: grid; grid-template-columns: 1.4fr .6fr; gap: 20px; }
+    @media(max-width:900px) { .contact-grid { grid-template-columns: 1fr; } }
+    .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
+    .contact-title { font-family: 'DM Serif Display', serif; font-size: 36px; margin-bottom: 10px; }
+    .contact-links { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .contact-link {
+      display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 10px;
+      font-size: 13px; font-weight: 600; color: var(--text); transition: border-color .2s; text-decoration: none;
+    }
+    .contact-link:hover { border-color: var(--border-accent); color: var(--accent); }
+
+    .request-steps { display: flex; flex-direction: column; gap: 10px; }
+    .step { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; background: rgba(0,210,150,.04); border: 1px solid rgba(0,210,150,.15); border-radius: 10px; }
+    .step-num { width: 22px; height: 22px; border-radius: 50%; background: var(--accent-dim); border: 1px solid var(--border-accent); color: var(--accent); font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-text { font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .step-text strong { color: var(--text); }
+
+    .resource-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .resource-links { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+    .resource-link {
+      display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      font-size: 12px; font-weight: 600; color: var(--muted); text-decoration: none; transition: all .2s;
+    }
+    .resource-link:hover { color: var(--text); border-color: rgba(255,255,255,.2); }
+
+    footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 11px; color: var(--muted2); }
+    footer strong { color: var(--muted); }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .f1 { animation: fadeUp .5s .1s both; }
+    .f2 { animation: fadeUp .5s .2s both; }
+    .f3 { animation: fadeUp .5s .3s both; }
+    .f4 { animation: fadeUp .5s .4s both; }
+    .f5 { animation: fadeUp .5s .5s both; }
+
+    @media(max-width:768px) {
+      nav { position: static; }
+      .hero-desc { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow-tl"></div>
+<div class="glow-tr"></div>
+<div class="glow-br"></div>
+
+<div class="wrap">
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-brand">
+      <div class="nav-cross">✛</div>
+      UCH
+    </div>
+    <div class="nav-links">
+      <a href="#platform">Platform</a>
+      <a href="#risk">Why UCH</a>
+      <a href="#tiers">Tiers</a>
+      <a href="#assurance">Assurance</a>
+      <a href="#security">Security</a>
+      <a href="#api">API</a>
+      <a href="#contact" class="nav-demo">Request Demo</a>
+      <a href="#contact" class="nav-cta">Request Briefing →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="eyebrow f1"><span class="dot"></span> Sovereign Telehealth Infrastructure · Institutional Deployment</div>
+      <h1 class="f2">Own Your<br><em>Digital Health</em><br><span>Stack.</span></h1>
+      <p class="hero-desc f3">
+        <strong>Unity Care Hospital (UCH)</strong> is a modular, sovereign-ready telehealth infrastructure platform engineered for hospital groups, healthcare operators, and national health systems that require <strong>full deployment control</strong>, compliance-aligned architecture, and long-term autonomy — without reliance on external SaaS ecosystems.
+      </p>
+      <div class="ctas f4">
+        <a href="#contact" class="btn btn-primary">Request Institutional Briefing →</a>
+        <a href="#contact" class="btn btn-demo">▶ Request Demo Access</a>
+      </div>
+      <div class="stats4 f5">
+        <div class="stat-card"><div class="stat-label">Environment</div><div class="stat-val">Production Ready</div></div>
+        <div class="stat-card"><div class="stat-label">Stack</div><div class="stat-val">Node · MongoDB · Docker</div></div>
+        <div class="stat-card"><div class="stat-label">Compliance</div><div class="stat-val">HIPAA · GDPR · SOC 2</div></div>
+        <div class="stat-card"><div class="stat-label">Pilot Entry</div><div class="stat-val green">$45,000</div></div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="card">
+        <h3>Quick Reference</h3>
+        <hr class="divider" />
+        <div style="margin-bottom:14px">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted2);margin-bottom:8px">What UCH Is</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+            <li style="font-size:12px;color:var(--muted);display:flex;gap:8px"><span style="color:var(--accent)">✓</span>Teleconsultation + WebRTC video foundation</li>
+            <li style="font-size:12px;color:var(--muted);display:flex;gap:8px"><span style="color:var(--accent)">✓</span>RBAC, secure record workflows, audit logging</li>
+            <li style="font-size:12px;color:var(--muted);display:flex;gap:8px"><span style="color:var(--accent)">✓</span>Designed for sovereign digital health programs</li>
+            <li style="font-size:12px;color:var(--muted);display:flex;gap:8px"><span style="color:var(--accent)">✓</span>Modular roadmap: IoT vitals, insurance APIs, AI triage</li>
+          </ul>
+        </div>
+        <hr class="divider" />
+        <div style="margin-bottom:14px">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted2);margin-bottom:8px">Pilot Success Metrics</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:6px">
+            <li style="font-size:12px;color:var(--muted);display:flex;gap:8px"><span style="color:var(--accent)">✓</span>≥ 95% uptime SLA</li>
+            <li style="font-size:12px;color:var(--muted);display:flex;gap:8px"><span style="color:var(--accent)">✓</span>Verified clinician usage</li>
+            <li style="font-size:12px;color:var(--muted);display:flex;gap:8px"><span style="color:var(--accent)">✓</span>No critical security incidents</li>
+            <li style="font-size:12px;color:var(--muted);display:flex;gap:8px"><span style="color:var(--accent)">✓</span>Institution retains full data ownership</li>
+          </ul>
+        </div>
+        <hr class="divider" />
+        <div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace">
+          Response target: <strong style="color:var(--muted)">48 Hours</strong><br>
+          Compliance: <strong style="color:var(--muted)">HIPAA-aligned · GDPR-ready · SOC 2</strong>
+        </div>
+      </div>
+
+      <div style="background:linear-gradient(135deg,rgba(0,210,150,.07),rgba(26,107,255,.06));border:1px solid var(--border-accent);border-radius:14px;padding:18px">
+        <div style="font-size:12px;font-weight:700;color:var(--accent);margin-bottom:4px;display:flex;align-items:center;gap:8px">
+          <span class="dot"></span> Demo Environment Available
+        </div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">Full hospital ops UI — dashboard, patients, bed management, appointments, telemedicine, and audit log. Access granted within 48h to verified institutional contacts.</div>
+        <a href="#contact" class="btn btn-demo" style="width:100%;justify-content:center">▶ Request Demo Access →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACCESS BANNER -->
+  <div class="access-banner">
+    <div class="access-left">
+      <div class="access-icon">🔒</div>
+      <div>
+        <div class="access-title">Demo access is controlled — not publicly open.</div>
+        <div class="access-desc">Institutional contacts receive access within 48h. Email <a href="mailto:info@uch.teosegypt.com">info@uch.teosegypt.com</a> with your organization, role, and deployment country.</div>
+        <div class="access-steps">
+          <span>1. Email request</span>
+          <span>→</span>
+          <span>2. Verification (48h)</span>
+          <span>→</span>
+          <span>3. Demo + diligence access</span>
+        </div>
+      </div>
+    </div>
+    <a href="mailto:info@uch.teosegypt.com?subject=UCH Demo Access Request" class="btn btn-primary" style="white-space:nowrap">Request Demo Access →</a>
+  </div>
+
+  <!-- PLATFORM -->
+  <div id="platform" class="section">
+    <div class="sec-label">Platform</div>
+    <div class="sec-title">Infrastructure.<br><em>Not a Subscription.</em></div>
+    <div class="sec-sub">UCH is engineered for institutions that cannot afford operational dependency on third-party telemedicine platforms — where data residency, procurement governance, and long-term roadmap control are board-level concerns.</div>
+    <div class="grid2">
+      <div class="card"><div class="badge-num">01 / 04</div><h3>Deployment Sovereignty</h3><p>Dedicated instance per institution. No shared infrastructure. Data residency controlled by the deploying entity. Air-gapped deployments available for national programs.</p></div>
+      <div class="card"><div class="badge-num">02 / 04</div><h3>White-Label Capability</h3><p>Institutional branding across patient experience, provider portal, and admin operations — fully under your identity and domain.</p></div>
+      <div class="card"><div class="badge-num">03 / 04</div><h3>Compliance Architecture</h3><p>Security controls designed around HIPAA safeguard principles, GDPR workflows, and audit-ready operational patterns. Institution retains full data ownership.</p></div>
+      <div class="card"><div class="badge-num">04 / 04</div><h3>Multi-Hospital Scale</h3><p>Modular topology supports regional rollouts, multi-facility hospital groups, and national health programs under a single engagement structure.</p></div>
+    </div>
+  </div>
+
+  <!-- RISK -->
+  <div id="risk" class="section">
+    <div class="sec-label">Why UCH</div>
+    <div class="sec-title">The Structural Risk<br>of <em>SaaS Lock-In</em></div>
+    <div class="sec-sub">Subscription telehealth platforms transfer operational control to a third party. When pricing, ownership, hosting jurisdictions, or API behavior changes — institutions absorb the risk. UCH reduces this dependency at the contract and infrastructure level.</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="risk-table">
+        <thead>
+          <tr><th>Risk</th><th>SaaS Platforms</th><th>UCH</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Subscription Escalation</td><td><span class="risk-bad">Recurring cost growth with scale</span></td><td><span class="risk-good">Fixed institutional pricing</span></td></tr>
+          <tr><td>Data Residency</td><td><span class="risk-bad">Third-party hosting jurisdictions</span></td><td><span class="risk-good">Institution-controlled residency</span></td></tr>
+          <tr><td>Vendor Acquisition Risk</td><td><span class="risk-bad">M&amp;A, repricing, deprecation</span></td><td><span class="risk-good">Ownership transfer option</span></td></tr>
+          <tr><td>Exit Barriers</td><td><span class="risk-bad">High migration cost, data lock</span></td><td><span class="risk-good">Source escrow available</span></td></tr>
+          <tr><td>National Compliance</td><td><span class="risk-bad">Limited sovereignty options</span></td><td><span class="risk-good">Air-gapped deployments possible</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- TIERS -->
+  <div id="tiers" class="section">
+    <div class="sec-label">Deployment Tiers</div>
+    <div class="sec-title">Contracted for <em>Ownership.</em><br>Not Billed Monthly.</div>
+    <div class="sec-sub">Pricing is indicative and engagement-scoped. Pilot fees are fully credited toward any upgrade tier upon conversion.</div>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-tier">Entry Point</div>
+        <div class="price-name">Institutional Pilot</div>
+        <div class="price-amount">$45K</div>
+        <div class="price-period">entry / single facility</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Single-facility controlled deployment</li>
+          <li>Institutional procurement validation</li>
+          <li>Onboarding &amp; technical handover</li>
+          <li>90-day support structure</li>
+          <li>Fully credited on upgrade</li>
+        </ul>
+        <div class="price-note">Optional maintenance: 12–18% / yr</div>
+      </div>
+      <div class="price-card featured">
+        <div class="price-tier">Regional License</div>
+        <div class="price-name">Institutional License</div>
+        <div class="price-amount">$89K+</div>
+        <div class="price-period">per region</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Dedicated regional instance</li>
+          <li>White-label branding</li>
+          <li>API-first integration surface</li>
+          <li>Enterprise support structure</li>
+          <li>Source code escrow option</li>
+        </ul>
+        <div class="price-note">Optional maintenance: 12–18% / yr</div>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">Full Ownership</div>
+        <div class="price-name">IP Transfer</div>
+        <div class="price-amount">$275K+</div>
+        <div class="price-period">one-time</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Repository + source handover</li>
+          <li>Architecture + deployment docs</li>
+          <li>Full procurement diligence pack</li>
+          <li>Transition support engagement</li>
+          <li>All rights transferred</li>
+        </ul>
+        <div class="price-note">Maintenance contracted as needed</div>
+      </div>
+      <div class="price-card">
+        <div class="price-tier">National / Government</div>
+        <div class="price-name">Sovereign Stack</div>
+        <div class="price-amount">$425K+</div>
+        <div class="price-period">per program</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>National-scale topology</li>
+          <li>Data residency guarantees</li>
+          <li>Air-gapped deployment option</li>
+          <li>Priority support + governance</li>
+          <li>Multi-facility management</li>
+        </ul>
+        <div class="price-note">Maintenance negotiated per contract</div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:4px">Pilot Entry</div>
+        <div style="font-size:13px;color:var(--muted)">Structured as a board-approvable line item. <strong style="color:var(--text)">Fully credited toward any upgrade tier.</strong></div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="#contact" class="btn btn-primary">Start Pilot →</a>
+        <a href="#contact" class="btn btn-demo">▶ Request Demo First</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ASSURANCE -->
+  <div id="assurance" class="section">
+    <div class="sec-label">Procurement</div>
+    <div class="sec-title">Institutional <em>Assurance</em> Package</div>
+    <div class="sec-sub">Documentation provided to verified institutional buyers. NDA available on request for full diligence access.</div>
+    <div class="grid3">
+      <div class="card"><h3>📋 Due Diligence Package</h3><p>Architecture overview, deployment model, integration surface, financial projections, and compliance mapping. Available under NDA.</p></div>
+      <div class="card"><h3>📄 Data Processing Agreement</h3><p>GDPR-aligned DPA template clarifying controller/processor roles and data handling boundaries. Engagement-scoped.</p></div>
+      <div class="card"><h3>📊 Deployment SLA Framework</h3><p>Uptime targets, response-time guarantees, escalation paths, and support tiers defined contractually.</p></div>
+      <div class="card"><h3>🔐 Source Code Escrow</h3><p>Escrow option available for Enterprise and Sovereign engagements to mitigate vendor continuity risk.</p></div>
+      <div class="card"><h3>🏗️ Architecture Whitepaper</h3><p>Technical brief for CIO/CTO review: security model, topology, deployment pathways, integration strategy. <a href="https://github.com/Elmahrosa/Unity-Care-Hospital/blob/main/buyer-kit/UCH-Architecture-Overview.pdf" target="_blank" style="color:var(--accent);text-decoration:none">Download PDF →</a></p></div>
+      <div class="card"><h3>⚖️ IP Transfer Clarity</h3><p>Ownership tier includes documented handover, repository transfer, NDA template, and structured transition support.</p></div>
+    </div>
+  </div>
+
+  <!-- SECURITY -->
+  <div id="security" class="section">
+    <div class="sec-label">Security Architecture</div>
+    <div class="sec-title">Enterprise Controls.<br><em>Designed for Healthcare.</em></div>
+    <div class="sec-sub">Control design supports institutional security programs and audit workflows. Specific configurations may vary by deployment scope.</div>
+    <div class="security-grid">
+      <div class="sec-card"><div class="sec-card-icon">🔑</div><div><div class="sec-card-name">JWT Authentication</div><div class="sec-card-desc">Access + refresh token model with token rotation and logout invalidation via token blacklist.</div></div></div>
+      <div class="sec-card"><div class="sec-card-icon">🛡️</div><div><div class="sec-card-name">RBAC Middleware</div><div class="sec-card-desc">Role-based access controls across clinical and administrative roles via route-level protection.</div></div></div>
+      <div class="sec-card"><div class="sec-card-icon">🔒</div><div><div class="sec-card-name">Password Hashing</div><div class="sec-card-desc">bcrypt-based hashing with secure storage patterns and reset-first recovery workflows.</div></div></div>
+      <div class="sec-card"><div class="sec-card-icon">⚡</div><div><div class="sec-card-name">Rate Limiting</div><div class="sec-card-desc">Abuse controls for authentication and sensitive routes to reduce brute-force exposure.</div></div></div>
+      <div class="sec-card"><div class="sec-card-icon">🪖</div><div><div class="sec-card-name">Security Headers</div><div class="sec-card-desc">HSTS, referrer policy, and header hardening via Helmet.js middleware suite.</div></div></div>
+      <div class="sec-card"><div class="sec-card-icon">✅</div><div><div class="sec-card-name">Input Validation</div><div class="sec-card-desc">Request validation on all mutation routes to reduce injection and malformed payload risk.</div></div></div>
+      <div class="sec-card"><div class="sec-card-icon">📤</div><div><div class="sec-card-name">GDPR Workflows</div><div class="sec-card-desc">Data export and soft-delete workflows aligned with GDPR access and erasure requirements.</div></div></div>
+      <div class="sec-card"><div class="sec-card-icon">🗒️</div><div><div class="sec-card-name">Audit Logging</div><div class="sec-card-desc">Full action trail per user and session for institutional compliance and incident review.</div></div></div>
+      <div class="sec-card"><div class="sec-card-icon">🔄</div><div><div class="sec-card-name">Graceful Shutdown</div><div class="sec-card-desc">Container-friendly shutdown patterns to reduce operational disruption during deploy cycles.</div></div></div>
+    </div>
+  </div>
+
+  <!-- API -->
+  <div id="api" class="section">
+    <div class="sec-label">API Surface</div>
+    <div class="sec-title">Core <em>Endpoints</em></div>
+    <div class="sec-sub">Representative core API surface used in institutional deployments. Full API specification available in the diligence package.</div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <table class="api-table">
+        <thead><tr><th>Method</th><th>Endpoint</th><th>Auth</th><th>Function</th></tr></thead>
+        <tbody>
+          <tr><td><span class="m-post">POST</span></td><td>/api/auth/login</td><td class="auth-lock">Public</td><td class="ep-desc">Login — issues access + refresh tokens</td></tr>
+          <tr><td><span class="m-post">POST</span></td><td>/api/auth/refresh</td><td class="auth-lock">Public</td><td class="ep-desc">Token rotation</td></tr>
+          <tr><td><span class="m-post">POST</span></td><td>/api/auth/logout</td><td class="auth-lock">🔒</td><td class="ep-desc">Logout via token invalidation</td></tr>
+          <tr><td><span class="m-post">POST</span></td><td>/api/users/register</td><td class="auth-lock">Public</td><td class="ep-desc">Patient registration</td></tr>
+          <tr><td><span class="m-get">GET</span></td><td>/api/users/me</td><td class="auth-lock">🔒</td><td class="ep-desc">Current user profile</td></tr>
+          <tr><td><span class="m-put">PUT</span></td><td>/api/users/update</td><td class="auth-lock">🔒</td><td class="ep-desc">Update profile</td></tr>
+          <tr><td><span class="m-get">GET</span></td><td>/api/users/</td><td class="auth-lock">🔒 Admin</td><td class="ep-desc">List all users (paginated)</td></tr>
+          <tr><td><span class="m-post">POST</span></td><td>/api/appointments</td><td class="auth-lock">🔒</td><td class="ep-desc">Book appointment</td></tr>
+          <tr><td><span class="m-get">GET</span></td><td>/api/appointments/patient/:id</td><td class="auth-lock">🔒</td><td class="ep-desc">Patient's appointments</td></tr>
+          <tr><td><span class="m-get">GET</span></td><td>/api/appointments/doctor/:id</td><td class="auth-lock">🔒</td><td class="ep-desc">Doctor's schedule</td></tr>
+          <tr><td><span class="m-patch">PATCH</span></td><td>/api/appointments/:id</td><td class="auth-lock">🔒</td><td class="ep-desc">Update / cancel</td></tr>
+          <tr><td><span class="m-delete">DELETE</span></td><td>/api/appointments/:id</td><td class="auth-lock">🔒</td><td class="ep-desc">Delete appointment</td></tr>
+          <tr><td><span class="m-post">POST</span></td><td>/api/records</td><td class="auth-lock">🔒 Doctor/Admin</td><td class="ep-desc">Create medical record</td></tr>
+          <tr><td><span class="m-get">GET</span></td><td>/api/records/patient/:id</td><td class="auth-lock">🔒</td><td class="ep-desc">Patient records</td></tr>
+          <tr><td><span class="m-get">GET</span></td><td>/api/records/patient/:id/export</td><td class="auth-lock">🔒</td><td class="ep-desc">GDPR data export</td></tr>
+          <tr><td><span class="m-patch">PATCH</span></td><td>/api/records/:id</td><td class="auth-lock">🔒 Doctor/Admin</td><td class="ep-desc">Update record</td></tr>
+          <tr><td><span class="m-delete">DELETE</span></td><td>/api/records/:id</td><td class="auth-lock">🔒 Admin</td><td class="ep-desc">Soft-delete (GDPR)</td></tr>
+          <tr><td><span class="m-get">GET</span></td><td>/api/analytics/trends</td><td class="auth-lock">🔒 Admin/Doctor</td><td class="ep-desc">Appointment volume trends</td></tr>
+          <tr><td><span class="m-get">GET</span></td><td>/api/analytics/stats</td><td class="auth-lock">🔒 Admin</td><td class="ep-desc">Status breakdown</td></tr>
+          <tr><td><span class="m-get">GET</span></td><td>/api/analytics/diagnoses</td><td class="auth-lock">🔒 Admin/Doctor</td><td class="ep-desc">Top diagnoses</td></tr>
+          <tr><td><span class="m-get">GET</span></td><td>/health</td><td class="auth-lock">Public</td><td class="ep-desc">Health check</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <span style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace"><strong style="color:var(--muted)">Milestone-gated:</strong> /api/blockchain · /api/care · /api/chatbot · /api/iot · /api/monitoring</span>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="contact" class="section">
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="sec-label">Contact</div>
+        <div class="contact-title">Request a Briefing.</div>
+        <div style="font-size:14px;color:var(--muted);margin-bottom:20px">Institutional inquiries only. We respond within <strong style="color:var(--text)">48 hours.</strong></div>
+        <div class="contact-links">
+          <a href="mailto:info@uch.teosegypt.com?subject=UCH Institutional Briefing Request" class="contact-link">📧 info@uch.teosegypt.com</a>
+          <a href="tel:+201006167293" class="contact-link">📞 +20 100 616 7293</a>
+          <a href="https://uch.teosegypt.com" target="_blank" rel="noreferrer" class="contact-link">🌐 uch.teosegypt.com</a>
+        </div>
+        <hr class="divider" />
+        <div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace;line-height:1.9">
+          Organization: <strong style="color:var(--muted)">Elmahrosa International · EST. 2007</strong><br>
+          Country: <strong style="color:var(--muted)">Egypt</strong><br>
+          License: <strong style="color:var(--muted)">Proprietary</strong>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="card">
+          <div style="font-size:13px;font-weight:700;margin-bottom:14px">Demo Access — 3 Steps</div>
+          <div class="request-steps">
+            <div class="step"><div class="step-num">1</div><div class="step-text">Email <strong>info@uch.teosegypt.com</strong> with your organization name and role</div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-text">Include your <strong>deployment country</strong> and use case</div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-text">Optionally add your <strong>GitHub username</strong> for diligence repo access</div></div>
+          </div>
+          <div style="margin-top:14px">
+            <a href="mailto:info@uch.teosegypt.com?subject=UCH Demo Access Request" class="btn btn-demo" style="width:100%;justify-content:center">▶ Email Demo Request →</a>
+          </div>
+        </div>
+
+        <div class="resource-card">
+          <div style="font-size:13px;font-weight:700;margin-bottom:4px">Resources</div>
+          <div class="resource-links">
+            <a href="https://github.com/Elmahrosa/Unity-Care-Hospital/blob/main/buyer-kit/UCH-Architecture-Overview.pdf" target="_blank" class="resource-link">📄 Architecture Overview PDF →</a>
+            <a href="https://github.com/Elmahrosa/Unity-Care-Hospital" target="_blank" rel="noreferrer" class="resource-link">⌥ GitHub Repository →</a>
+            <a href="https://vtmueukx.manus.space" target="_blank" rel="noreferrer" class="resource-link">🏢 Parent Organization →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>© <span id="yr"></span> Unity Care Hospital (UCH) · <strong>Elmahrosa International</strong> · All rights reserved.</div>
+    <div>Proprietary · HIPAA-aligned · GDPR-ready · Sovereign Deployment</div>
+  </footer>
+
+</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const id = this.getAttribute('href');
+      if (id.length > 1) {
+        e.preventDefault();
+        const el = document.querySelector(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
