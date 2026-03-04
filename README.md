@@ -1,7 +1,7 @@
 <div align="center">
 
 # 🏥 Unity Care Hospital (UCH)
-### Sovereign Telehealth Infrastructure
+## Institutional Digital Health Infrastructure
 **Institutional Deployment · White-Label · Full Ownership Transfer**
 
 [![API Tests](https://img.shields.io/badge/tests-passing-brightgreen?style=flat-square)](./tests)
@@ -14,7 +14,7 @@
 
 **Live Platform:** https://uch.teosegypt.com  
 **Demo Environment:** https://demo-uch.teosegypt.com *(access-controlled — request required)*  
-**Contact:** info@uch.teosegypt.com · +20 100 616 7293  
+**Contact:** info@uch.teosegypt.com ·
 **Response Target:** 48 Hours
 
 </div>
@@ -214,7 +214,7 @@ Coverage includes: Authentication · Token rotation · Appointment booking · RB
 **Ayman Seif** — Elmahrosa International
 
 📧 info@uch.teosegypt.com  
-📞 +20 100 616 7293  
+
 🌐 https://uch.teosegypt.com
 
 Response target: **48 hours**
