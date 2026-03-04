@@ -15,7 +15,7 @@ Healthcare infrastructure platform engineered for hospitals, healthcare groups, 
 [![License](https://img.shields.io/badge/license-Proprietary-red?style=flat-square)](./LICENSE)
 
 **Live Platform:** https://uch.teosegypt.com  
-**Interactive Demo:** https://unity-care-hospital.vercel.app
+**Interactive Demo:** 
 
 📧 info@uch.teosegypt.com · 📞 +20 100 616 7293 · **Response: 48 hours**
 
@@ -78,15 +78,7 @@ Each deployment is isolated and fully owned by the deploying institution.
 ## Platform Preview
 
 ### Executive Dashboard
-![Dashboard](./website/screenshots/dashboard.png)
 
-### Patient Management
-![Patients](./website/screenshots/patients.png)
-
-### Telemedicine Console
-![Telemedicine](./website/screenshots/telemedicine.png)
-
-> Full interactive demo: https://unity-care-hospital.vercel.app  
 > Access controlled — email info@uch.teosegypt.com to request
 
 ---
