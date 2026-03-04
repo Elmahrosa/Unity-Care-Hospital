@@ -1,47 +1,61 @@
-# Acquisition Process
+# Commercial Licensing
 
-Organizations interested in acquiring or licensing Unity Care Hospital follow the process below.
+Unity Care Hospital (UCH) is available under several licensing models depending on the needs of the acquiring organization.
 
-## Step 1 — Initial Contact
+## Pilot Deployment
 
-Prospective partners contact the project owner through the official website.
+Intended for hospitals evaluating the platform.
 
-Basic project information and demonstration access are provided.
+Includes:
+- Single hospital deployment
+- Telemedicine module
+- Patient management
+- Appointment scheduling
+- Pharmacy integration
 
----
-
-## Step 2 — NDA
-
-Interested organizations sign a non-disclosure agreement.
-
-This allows access to technical documentation and deeper platform review.
-
----
-
-## Step 3 — Technical Review
-
-The acquiring organization may review:
-
-- system architecture
-- deployment model
-- security design
-- operational workflows
-
-A guided demonstration session may be scheduled.
+Typical engagement: 3–6 months.
 
 ---
 
-## Step 4 — Commercial Discussion
+## Institutional License
 
-The parties determine the preferred engagement model:
+Designed for private hospital networks or regional healthcare providers.
 
-- pilot deployment
-- institutional license
-- national infrastructure deployment
-- full acquisition
+Includes:
+- Multi-hospital support
+- White-label branding
+- API integrations
+- Telemedicine + pharmacy modules
+- Operational dashboards
+
+Annual license with optional support agreement.
 
 ---
 
-## Step 5 — Agreement and Deployment
+## National Infrastructure Deployment
 
-Upon agreement, deployment planning and operational onboarding begins.
+For ministries of health or national digital health systems.
+
+Includes:
+- National scale infrastructure
+- multi-hospital network support
+- healthcare identity management
+- cross-hospital patient record exchange
+- regulatory integration support
+
+Deployment conducted in collaboration with national IT teams.
+
+---
+
+## Full Acquisition
+
+The platform can be acquired with full intellectual property transfer.
+
+Includes:
+
+- source code
+- documentation
+- deployment pipeline
+- technical onboarding
+
+Terms negotiated privately.
