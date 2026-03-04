@@ -67,7 +67,14 @@ function login() {
   const email = $('#email').value.trim();
   const pass  = $('#pass').value.trim();
   const user  = state.data.users.find(u => u.email===email && u.password===pass);
-  if (!user) { alert('Use buyer@demo.com / demo123'); return; }
+  if (!user) {
+    const errEl = $('#login-error');
+    if (errEl) {
+      errEl.textContent = 'Invalid credentials. Contact info@uch.teosegypt.com to request access.';
+      errEl.style.display = 'block';
+    }
+    return;
+  }
   state.authed = true;
   state.user   = { email: user.email, role: user.role, name: user.name };
   state.view   = 'dashboard';
@@ -119,7 +126,7 @@ function viewLogin() {
           Compliance Simulation: HIPAA · GDPR · SOC 2 (UI level)
         </div>
         <div style="margin-top:20px">
-          <a href="mailto:info@uch.teosegypt.com"
+          <a href="mailto:info@uch.teosegypt.com?subject=UCH Demo Access Request&body=Organization:%0ARole:%0ADeployment Country:"
              style="display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;
                     border:1px solid rgba(0,211,167,.3);background:rgba(0,211,167,.07);
                     color:#00d3a7;font-size:12px;text-decoration:none">
@@ -133,21 +140,32 @@ function viewLogin() {
         <div style="font-size:16px;font-weight:700;margin-bottom:4px">Secure Demo Access</div>
         <div style="font-size:12px;color:#64748b;margin-bottom:24px">Authorized institutional reviewers only.</div>
 
-        <div class="cred-box" style="margin-bottom:24px">
-          <div style="font-size:12px;font-weight:600;color:#cbd5e1;margin-bottom:8px">Demo Credentials</div>
-          <div>Executive View → <span style="color:#a5b4fc">buyer@demo.com</span></div>
-          <div style="margin-top:4px">Ops Admin → <span style="color:#a5b4fc">ops@demo.com</span></div>
-          <div style="margin-top:4px">Password → <span style="color:#a5b4fc">demo123</span></div>
+        <!-- Access notice — NO credentials shown -->
+        <div style="background:rgba(0,211,167,.05);border:1px solid rgba(0,211,167,.2);border-radius:10px;
+                    padding:12px 14px;margin-bottom:20px;font-size:12px;color:#94a3b8;line-height:1.7">
+          <div style="font-weight:600;color:#00d3a7;margin-bottom:6px">🔒 Access-Controlled Environment</div>
+          Demo credentials are shared privately with verified institutional contacts.<br>
+          To request access, email
+          <a href="mailto:info@uch.teosegypt.com?subject=UCH Demo Access Request"
+             style="color:#00d3a7;text-decoration:none">info@uch.teosegypt.com</a>
+          — response within 48 hours.
         </div>
 
         <label>Email</label>
-        <input id="email" type="text" placeholder="buyer@demo.com" value="buyer@demo.com"
+        <input id="email" type="text" placeholder="Enter your demo email"
                style="margin-bottom:16px"/>
         <label>Password</label>
-        <input id="pass" type="password" placeholder="demo123" value="demo123"
-               style="margin-bottom:24px"/>
+        <input id="pass" type="password" placeholder="Enter your demo password"
+               onkeydown="if(event.key==='Enter')login()"
+               style="margin-bottom:8px"/>
 
-        <button class="btn btn-indigo" style="width:100%;padding:14px;font-size:14px;font-weight:600"
+        <!-- Error message (hidden by default) -->
+        <div id="login-error" style="display:none;font-size:12px;color:#fca5a5;
+             background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);
+             border-radius:8px;padding:10px 12px;margin-bottom:16px;line-height:1.5">
+        </div>
+
+        <button class="btn btn-indigo" style="width:100%;padding:14px;font-size:14px;font-weight:600;margin-top:8px"
                 onclick="login()">
           Enter Interactive Demo →
         </button>
