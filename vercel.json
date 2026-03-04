@@ -1,9 +1,9 @@
 {
   "outputDirectory": "website",
-  "routes": [
-    { "src": "/demo", "dest": "/demo.html" },
-    { "src": "/demo.html", "dest": "/demo.html" },
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/(.*)", "dest": "/$1" }
+  "redirects": [
+    { "source": "/", "destination": "/demo.html", "permanent": false }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/$1" }
   ]
 }
