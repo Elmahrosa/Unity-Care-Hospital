@@ -11,7 +11,13 @@
 [![HIPAA](https://img.shields.io/badge/HIPAA-aligned-blue?style=flat-square)](./docs)
 [![GDPR](https://img.shields.io/badge/GDPR-ready-blue?style=flat-square)](./docs)
 [![License](https://img.shields.io/badge/license-Proprietary-red?style=flat-square)](./LICENSE)
+## Institutional Evaluation
 
+This repository is published for **technical transparency and institutional evaluation**.
+
+Healthcare operators, hospital groups, and government health agencies may request the **complete deployment package under NDA**.
+
+Contact: info@uch.teosegypt.com
 **Live Platform:** https://uch.teosegypt.com  
 **Interactive Demo:** https://unity-care-hospital.vercel.app  
 
@@ -117,7 +123,16 @@ Unity-Care-Hospital/
 ```
 
 ---
+## Interactive Demo
 
+Institutional demo environment:
+
+https://unity-care-hospital.vercel.app
+
+Credentials:
+
+buyer@demo.com  
+demo123
 # Platform Pillars
 
 ## Deployment Sovereignty
@@ -257,5 +272,3 @@ See LICENSE for details.
 Developed by **Elmahrosa International — Egypt**
 
 </div>
-```
-, I can also show you **the 3 small changes that increase the chance of selling this repo 10× faster to a hospital buyer.**
